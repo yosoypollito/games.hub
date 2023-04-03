@@ -1,0 +1,11 @@
+.gamesHub{
+  display:flex;
+  flex-direction: column;
+
+  align-self: flex-start;
+  place-content: flex-start;
+  place-items: flex-start;
+
+  grid-row:span 1;
+  height:auto;
+}

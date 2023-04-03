@@ -7,8 +7,9 @@ interface Room {
   room:string;
 }
 
-
 import request from "@/api";
+
+import styles from "@/app/rooms/create.room.module.css"
 
 export default function CreateRoom(){
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function CreateRoom(){
   const create = async ()=>{
     const data = await request<Room>({
       url:"/api/room",
-      method:"GET"
+      method:"POST"
     });
 
     if(!data) return;
@@ -25,6 +26,6 @@ export default function CreateRoom(){
   }
 
   return (
-    <button onClick={create}>Create room</button>
+    <button onClick={create} className={styles.createRoom}>Create room</button>
   )
 }

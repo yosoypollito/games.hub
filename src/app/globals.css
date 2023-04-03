@@ -14,14 +14,67 @@
 :root.dark{
   --background:#000000;
   --text-color:#ffffff;
+  --cards-background:var(--blue);
+
+  --pink:#b265c6;
+  --red:#ff4468;
+
+  --theme-background:var(--red);
+  --theme-switch:var(--pink);
+
+  --button-shadow-color:var(--red);
+  --button-background:var(--pink);
+  --button-text-color:white;
 }
 :root.light{
   --background:#ffffff;
   --text-color:#000000;
+
+  --light-blue:#00dcf5;
+  --black:#252234;
+
+  --theme-background:var(--light-blue);
+  --theme-switch:var(--black);
+
+  --button-shadow-color:var(--light-blue);
+  --button-background:var(--black);
+  --button-text-color:white;
+
+  --cards-background:var(--grey);
 }
 
 body{
   background:var(--background);
   color:var(--text-color);
   padding:16px;
+
+  display:grid;
+  grid-template-rows:min-content 1fr;
+
+  gap:12px;
+}
+
+html,body{
+  height:100%;
+}
+
+button{
+  display:flex;
+  flex-direction:row;
+  place-content:center;
+  place-items:center;
+
+  cursor: pointer;
+
+  font-size:16px;
+  padding:6px 18px;
+  border:0;
+
+  text-transform: capitalize;
+  font-weight: 600;
+  background:var(--button-background);
+  color:var(--button-text-color);
+
+  box-shadow: 3px 3px 0 var(--button-shadow-color);
+
 }
