@@ -1,19 +1,42 @@
 import { NextResponse } from "next/server";
 
-import { set, ref, push } from "firebase/database";
-import { database } from "@/firebase/config";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
-export async function GET(request: Request){
+export async function GET(request:Request){
+	try{
+		console.log('hola')
 
-	const room = push(ref(database, "rooms"))
-	set(room,{
-		game:"",
-		players:[],
-		viewers:[],
-	});
+		return NextResponse.json({
+			status:200,
+			message:"hola"
+		})
+	}catch(e){
+		return NextResponse.json({
+			status:404,
+			error:"Cant create room"
+		})
+	}
+}
 
-	return NextResponse.json({
-		status:201,
-		room:room.key
-	});
+export async function POST(){
+	try{
+		const room = await addDoc(collection(db, "rooms"),{
+			game:"",
+			players:[],
+			viewers:[]
+		})
+
+		return NextResponse.json({
+			status:201,
+			room:room.id
+		});
+
+	}catch(e){
+		//TODO handle this errors
+		return NextResponse.json({
+			status:500,
+			error:"Cant create room"
+		});
+	}
 }
