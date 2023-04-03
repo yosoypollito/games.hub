@@ -6,15 +6,16 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, FIREBASE_MEASUREMENT_ID } = process.env;
 const firebaseConfig = {
-  apiKey: "AIzaSyANwWz-uwrrF1QFREzSmWY3Xa0574COmRE",
-  authDomain: "daif-games-hub.firebaseapp.com",
-  databaseURL: "https://daif-games-hub-default-rtdb.firebaseio.com",
-  projectId: "daif-games-hub",
-  storageBucket: "daif-games-hub.appspot.com",
-  messagingSenderId: "1038867601095",
-  appId: "1:1038867601095:web:87a2bdb0458ec1358a10e2",
-  measurementId: "G-G9QX1YB892",
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN, 
+  databaseURL: FIREBASE_DATABASE_URL,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
+  measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
