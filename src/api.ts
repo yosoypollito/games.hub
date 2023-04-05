@@ -1,10 +1,12 @@
 import axios, { type AxiosRequestConfig } from "axios"
 
-const handleResponse = async <T>(config:AxiosRequestConfig<T>): Promise<T | null> =>{
+const handleResponse = async <T>(config:AxiosRequestConfig): Promise<T | null> =>{
 	try{
-		const { data } = await axios(config)
+		const { data } = await axios<T>(config);
+		console.log({ data })
 		return data;
-	}catch(e){
+	}catch(e:any){
+		console.log(e.message);
 		return null;
 	}
 }

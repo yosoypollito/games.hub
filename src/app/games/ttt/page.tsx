@@ -1,4 +1,4 @@
-export default function TTT(){
+export default function TicTacToe(){
 
   return(
     <>tic tac toe</>

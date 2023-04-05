@@ -1,22 +1,32 @@
-"use client"
+import type { Room } from "@/types";
+
 import GamesHub from "@/app/games/games.hub"
-import InviteFriend from "@/app/rooms/invite.friend";
 
-import { useEffect } from "react";
+import request from "@/api"
 
-import styles from "@/app/rooms/[id]/room.hub.module.css"
 
-export default function Room({ params }:{ params:{ id:string } }){
+const getRoomData = async (id:string)=>{
+  const room = await request<{ room:Room.Item }>({
+    method:"GET",
+    url:`http://localhost:3000/api/room/${id}`
+  });
 
-  useEffect(()=>{
+    if(!room){
+      throw new Error("No room found")
+    };
+    return room;
+}
 
-  },[]);
+export default async function RoomHub({ params }:{ params:{ id:string } }){
+
+  const { room }:{ room:Room.Item } = await getRoomData(params?.id || "");
+
 
   return (
-    <main className={styles.roomHub}>
-      <InviteFriend params={params}/>
-
-        <GamesHub/>
-    </main>
+    <>
+      <GamesHub {...{
+        ...room,
+      }}/>
+    </>
   )
 }

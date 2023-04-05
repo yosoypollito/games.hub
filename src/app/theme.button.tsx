@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 const light = (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <circle cx="12" cy="12" r="3" />
@@ -24,21 +23,18 @@ const ThemeButton = ()=>{
 
   const getTheme = ()=>{
 
-    const localTheme = localStorage.getItem("theme");
+    const localTheme = window.localStorage.getItem("theme");
 
     if(localTheme){
       return localTheme == "dark" ? true : false;
     }
-    
+
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? true : false
   }
 
   // true == dark || false == light
-  const [theme, setTheme] = useState(getTheme());
-  
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    event.matches ? setTheme(false) : setTheme(true);
-  });
+  const [theme, setTheme] = useState(false);
+
 
   const switchTheme = ()=>{
     setTheme(!theme);
@@ -52,6 +48,13 @@ const ThemeButton = ()=>{
     html.className = theme ? "dark" : "light";
 
   },[theme])
+
+  useEffect(()=>{
+    setTheme(getTheme())
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      event.matches ? setTheme(false) : setTheme(true);
+    });
+  },[])
 
   return(
     <div className={styles.themeButton}>

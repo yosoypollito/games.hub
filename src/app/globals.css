@@ -25,9 +25,17 @@
   --button-shadow-color:var(--red);
   --button-background:var(--pink);
   --button-text-color:white;
+
+  --input-background:white;
+  --input-border-color:var(--red);
+  --input-text-color:black;
+
+  --game-icon-background:var(--pink);
+  --game-icon-text-color:white;
+  --game-icon-shadow-color:var(--red);
 }
 :root.light{
-  --background:#ffffff;
+  --background:var(--grey);
   --text-color:#000000;
 
   --light-blue:#00dcf5;
@@ -39,6 +47,14 @@
   --button-shadow-color:var(--light-blue);
   --button-background:var(--black);
   --button-text-color:white;
+
+  --input-background:white;
+  --input-border-color:var(--light-blue);
+  --input-text-color:black;
+
+  --game-icon-background:var(--black);
+  --game-icon-text-color:white;
+  --game-icon-shadow-color:var(--light-blue);
 
   --cards-background:var(--grey);
 }
@@ -75,6 +91,10 @@ button{
   background:var(--button-background);
   color:var(--button-text-color);
 
-  box-shadow: 3px 3px 0 var(--button-shadow-color);
+  box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
+}
 
+input{
+  border:none;
+  outline: none;
 }

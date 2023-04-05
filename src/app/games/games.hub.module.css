@@ -4,8 +4,36 @@
 
   align-self: flex-start;
   place-content: flex-start;
-  place-items: flex-start;
+  place-items:center;
 
   grid-row:span 1;
   height:auto;
+
+  gap:18px;
+}
+
+.gameIcon{
+  display:flex;
+  flex-direction: column;
+  padding:6px 18px;
+
+  color:var(--game-icon-text-color);
+  background:var(--game-icon-background);
+
+  box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
+
+  place-content: center;
+  place-items: center;
+
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.gameIcon svg{
+  stroke:var(--game-icon-text-color);
+  stroke-width: 1px;
+  fill:none;
 }

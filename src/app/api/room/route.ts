@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { db } from "@/app/firebase/config";
 
 export async function GET(request:Request){
 	try{
-		console.log('hola')
-
 		return NextResponse.json({
 			status:200,
-			message:"hola"
-		})
+			message:"Create new room"
+		});
 	}catch(e){
 		return NextResponse.json({
 			status:404,
