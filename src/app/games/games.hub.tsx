@@ -72,7 +72,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
       <div className={styles.gamesHub}>
         <h2>Games</h2>
         <UserList players={room.players}/>
-        <span>Leader: {room.leader}</span>
+        <span>Leader: {room.players[room.leader].displayName}</span>
         {!(gamesDict[room.game]) ? Object.keys(gamesDict).map(game=>{
           const { label } = gamesDict[game];
 

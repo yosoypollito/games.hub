@@ -1,4 +1,4 @@
-import styles from "@/app/games/games.hub.module.css"
+import styles from "@/app/games/user.list.module.css"
 
 import type { User } from "@/types"
 
@@ -6,7 +6,6 @@ const User = ({ uid, displayName }:User.Item)=>{
   return(
     <div className={styles.userContainer}>
       <span>{ displayName }</span>
-      <span>A: { uid }</span>
     </div>
   )
 }
