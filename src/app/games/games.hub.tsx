@@ -66,6 +66,10 @@ export function Room({ roomData }:{ roomData: Room.Item }){
 
     const user = await onAuthChange();
 
+    if(room.leader != user?.uid){
+      return toast.error("You are not the room leader")
+    }
+
     if(!user){
       return toast.error("No user found");
     }

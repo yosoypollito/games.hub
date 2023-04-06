@@ -12,7 +12,9 @@ import type { User } from "firebase/auth";
 
 import { toast } from "react-toastify";
 
-export default function TicTacToe({ gameData, players, id}:Games.TicTacToe){
+import gamesDict from "@/app/games/games.dict";
+
+export default function TicTacToe({ gameData, players, id, leader }:Games.TicTacToe){
 
   const { board, turn, turns, nextTurnValue, playersNeeded, winner } = gameData;
 
@@ -27,6 +29,8 @@ export default function TicTacToe({ gameData, players, id}:Games.TicTacToe){
       }
     })
   },[])
+
+  const docRef = doc(db, "rooms", id);
 
   const useTurn = async (cell:number,i:number)=>{
     if(winner){
@@ -48,6 +52,7 @@ export default function TicTacToe({ gameData, players, id}:Games.TicTacToe){
 
     const newTurn = {
       uid:user.uid,
+      displayName:user.displayName,
       position:i
     }
 
@@ -69,7 +74,7 @@ export default function TicTacToe({ gameData, players, id}:Games.TicTacToe){
       userWinner = turns[wins[0]];
     }
 
-    await updateDoc(doc(db, "rooms", id),{
+    await updateDoc(docRef,{
       "gameData.board": board,
       "gameData.turns": arrayUnion(newTurn),
       "gameData.turn": nextUserTurn,
@@ -100,20 +105,75 @@ export default function TicTacToe({ gameData, players, id}:Games.TicTacToe){
     return wins;
   }
 
+  const resetGame = ()=>{
+    if(!user){
+      return toast.error("Cant get user for reset");
+    }
+
+    if(leader != user.uid){
+      return toast.error("You are not the room leader")
+    }
+
+    updateDoc(docRef,{
+      gameData:{
+        ...gamesDict["ttt"].startData,
+        turn:{
+          uid:user.uid,
+          displayName:user.displayName
+        }
+      }
+    })
+  }
+
+  const goHub = ()=>{
+    if(!user){
+      return toast.error("Cant get user for reset");
+    }
+
+    if(leader != user.uid){
+      return toast.error("You are not the room leader")
+    }
+
+    updateDoc(docRef,{
+      game:"default"
+    })
+  }
+
   return(
     <div className={styles.tictactoe}>
-      <div className={styles.tttGame}>
-        {board.map((cell, index)=>{
+      {(gameData.winner?.uid) ? (
+        <div className={styles.winner}>
+          <h1>Winner</h1>
+          <span>{ gameData.winner.displayName }</span>
+          <div className={styles.actions}>
+            <button onClick={resetGame}>Rematch</button>
+            <button onClick={goHub}>Go lobby</button>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.tttGame}>
+          {board.map((cell, index)=>{
 
-          return(
-            <div key={index} className={styles.cell} onClick={()=>useTurn(cell,index)}>
-              {cell == 1 && "x"}
-              {cell == 2 && "o"}
-            </div>
-          )
-        })}
-      </div>
-      {(gameData.winner?.uid) && <>Winner {gameData.winner.uid}</>}
+            return(
+              <div key={index} className={styles.cell} onClick={()=>useTurn(cell,index)}>
+                {cell == 1 && (
+                  <svg className={styles.cross} viewBox="0 0 20 20">
+                    <path fill="none" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+                      c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+                      c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+                      c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                  </svg>              )}
+                {cell == 2 && (
+                  <svg className={styles.circle} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <circle cx="12" cy="12" r="9" />
+                  </svg>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
