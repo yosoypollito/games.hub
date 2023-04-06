@@ -1,14 +1,28 @@
-import TicTacToe from "./ttt/page"
+import TicTacToe from "./tic.tac.toe";
+
+import type { Games, Room } from "@/types";
 
 const gamesDict:{
   [key:string]:{
     label:string,
-    gameComponent:React.ReactNode
+    startGame:(currentData:Games.TicTacToe)=>React.ReactNode;
+    startData:any;
   }
 } = {
   "ttt":{
     label:"Tic Tac Toe",
-    gameComponent:<TicTacToe/>
+    startGame:(currentData)=>{
+      return <TicTacToe {...{
+        ...currentData
+      }}/>
+    },
+    startData:{
+      board:[0,0,0, 0,0,0, 0,0,0],
+      playersNeeded:2,
+      turn:0,
+      turns:[],
+      nextTurnValue:1,
+    }
   }
 }
 

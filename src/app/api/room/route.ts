@@ -30,7 +30,6 @@ export async function POST(req:Request){
 		const room = await db.collection("rooms").add({
 			game:"default",
 			players:{},
-			viewers:[],
 			leader:payload.uid
 		});
 

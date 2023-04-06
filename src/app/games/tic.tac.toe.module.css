@@ -1,0 +1,26 @@
+.tictactoe{
+  display:flex;
+  flex-direction: column;
+  gap:6px;
+}
+.tttGame{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  width: 300px;
+  height: 300px;
+
+  gap:12px;
+}
+
+.cell{
+  display:flex;
+  width:100%;
+  height:auto;
+
+  grid:span 1;
+
+  border:1px solid var(--game-icon-background);
+  padding:6px;
+}

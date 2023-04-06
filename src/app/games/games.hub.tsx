@@ -8,12 +8,14 @@ import { db } from "@/firebase/client"
 import { onSnapshot, doc, updateDoc } from "firebase/firestore"
 
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import gamesDict from "@/app/games/games.dict"
 
 import UserList from "@/app/games/user.list";
 
 import { useRoom } from "@/api";
+import { useAuth } from "@/firebase/client"
 
 export default function GamesHub({ id }:{ id:string }){
 
@@ -58,8 +60,25 @@ export function Room({ roomData }:{ roomData: Room.Item }){
   }
 
   const changeGame = async (game:string)=>{
+    const { startData } = gamesDict[game];
+
+    const { onAuthChange } = useAuth();
+
+    const user = await onAuthChange();
+
+    if(!user){
+      return toast.error("No user found");
+    }
+
     await updateDoc(doc(db, "rooms", room.id),{
-      game:game
+      game:game,
+      gameData:{
+        ...startData,
+        turn:{
+          uid:user.uid,
+          displayName:user.uid
+        }
+      }
     })
   }
 
@@ -81,7 +100,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
               {label}
             </div>
           )
-        }) : (gamesDict[room.game].gameComponent)}
+        }) : (gamesDict[room.game].startGame({ ...room }))}
 
       </div>
 

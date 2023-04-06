@@ -13,6 +13,7 @@ export namespace Room{
 		players:players;
 		id:string;
 		leader:string;
+		gameData:any;
 	}
 
 }
@@ -25,5 +26,22 @@ export namespace User{
 	export interface Item{
 		uid:uid;
 		displayName:displayName;
+	}
+}
+
+export namespace Games{
+
+	export interface TicTacToe extends Room.Item{
+		gameData:{
+			board:Array<number>;
+			turn:User.Item;
+			turns:Array<{
+				uid:User.uid,
+				position:number
+			}>;
+			nextTurnValue:number;
+			playersNeeded:number;
+			winner:User.Item | null
+		}
 	}
 }
