@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useAuth } from "@/firebase/auth";
+import { useAuth } from "@/firebase/client";
 import { updateProfile } from "firebase/auth";
 
 export default function CreateRoom(){
@@ -35,7 +35,6 @@ export default function CreateRoom(){
 
   },[])
 
-
   const create = async ()=>{
 
     //Login/create user and get user info
@@ -50,7 +49,10 @@ export default function CreateRoom(){
 
     const data = await request<Room>({
       url:"/api/room",
-      method:"POST"
+      method:"POST",
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
     });
 
     if(!data?.room) return;

@@ -5,6 +5,7 @@ export namespace Room{
 		viewers:[];
 		players:[];
 		id:string;
+		leader:string;
 	}
 
 }

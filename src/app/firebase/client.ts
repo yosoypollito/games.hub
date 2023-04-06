@@ -1,12 +1,25 @@
-import { app } from "./config";
+"use client"
 import { getAuth, type User, signInAnonymously } from "firebase/auth"
+
+import { firebaseConfig } from "./config";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { initializeFirestore } from "firebase/firestore";
+// Initialize Firebase
+const app = initializeApp(firebaseConfig, "Front-App");
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+});
 
 export const useAuth = ()=>{
   const auth = getAuth(app)
 
   const onAuthChange = ()=>new Promise<User | null>((resolve, reject)=>{
-    auth.onAuthStateChanged(user=>{
+    auth.onAuthStateChanged(async user=>{
       if(user){
+        await user.reload();
+        const token = await user.getIdToken();
+        localStorage.setItem("token", token);
         return resolve(user)
       }
 

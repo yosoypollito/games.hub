@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/app/firebase/config";
+import { db } from "@/app/firebase/admin";
+import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
 
 export async function GET(request:Request){
 	try{
@@ -17,13 +17,22 @@ export async function GET(request:Request){
 	}
 }
 
-export async function POST(){
+export async function POST(req:Request){
 	try{
-		const room = await addDoc(collection(db, "rooms"),{
-			game:"",
+		const payload = await getTokenPayloadFromRequest(req);
+
+		if(!payload){
+			return NextResponse.json({
+				message:"Auth token not found or invalid"
+			})
+		}
+
+		const room = await db.collection("rooms").add({
+			game:"default",
 			players:[],
-			viewers:[]
-		})
+			viewers:[],
+			leader:payload.uid
+		});
 
 		return NextResponse.json({
 			status:201,

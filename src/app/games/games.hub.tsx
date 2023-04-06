@@ -1,44 +1,37 @@
 "use client"
+import type { Room } from "@/types"
 import styles from "@/app/games/games.hub.module.css"
 
 import { useState, useEffect } from "react"
+
+import { db } from "@/firebase/client"
 import { onSnapshot, doc, updateDoc } from "firebase/firestore"
-import { db } from "@/app/firebase/config"
 
 import { ToastContainer, toast } from 'react-toastify'
 
-import type { Room } from "@/types"
+import request from "@/api"
+import gamesDict from "@/app/games/games.dict"
 
-import TicTacToe from "./ttt/page"
-
-const gamesDict:{
-  [key:string]:{
-    label:string,
-    gameComponent:React.ReactNode
-  }
-} = {
-  "ttt":{
-    label:"Tic Tac Toe",
-    gameComponent:<TicTacToe/>
-  }
-}
-
-export default function GamesHub({ game, viewers, players, id }:Room.Item){
+export default function GamesHub({ roomData }:{ roomData: Room.Item }){
 
   const [room, setRoom] = useState<Room.Item>({
-    game,
-    viewers, 
-    players,
-    id
+    ...roomData
   });
+  console.log(room, "games");
 
-  const roomDoc = doc(db, "rooms", room.id);
+  const startRoomRealTime = async ()=>{
+    console.log({ room })
 
-  const startFirebase = async ()=>{
-
-
+    const data = await request({
+      method:"PUT",
+      url:`${process.env.NEXT_PUBLIC_API_URL}/api/room/${room.id}`,
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    });
+    console.log({data})
     //TODO unsuscribe on close
-    const unRoom = onSnapshot(roomDoc, (doc) => {
+    const unRoom = onSnapshot(doc(db, "rooms", room.id), (doc) => {
       const data = doc.data();
       if(!data){
         //TODO handle errors;
@@ -58,15 +51,15 @@ export default function GamesHub({ game, viewers, players, id }:Room.Item){
   }
 
   useEffect(()=>{
-    startFirebase()
+    startRoomRealTime();
   },[])
 
   return(
     <>
       <div className={styles.gamesHub}>
         <h2>Games</h2>
-        {room.game && gamesDict[room.game].gameComponent}
-        {!(gamesDict[room.game]) && Object.keys(gamesDict).map(game=>{
+        <span>Leader: {room.leader}</span>
+        {!(gamesDict[room.game]) ? Object.keys(gamesDict).map(game=>{
           const { label } = gamesDict[game];
 
           return (
@@ -74,7 +67,7 @@ export default function GamesHub({ game, viewers, players, id }:Room.Item){
               {label}
             </div>
           )
-        })}
+        }) : (gamesDict[room.game].gameComponent)}
 
       </div>
 
