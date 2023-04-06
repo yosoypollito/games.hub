@@ -29,7 +29,7 @@ export async function POST(req:Request){
 
 		const room = await db.collection("rooms").add({
 			game:"default",
-			players:[],
+			players:{},
 			viewers:[],
 			leader:payload.uid
 		});
@@ -39,7 +39,8 @@ export async function POST(req:Request){
 			room:room.id
 		});
 
-	}catch(e){
+	}catch(e:any){
+		console.log(e.message);
 		//TODO handle this errors
 		return NextResponse.json({
 			status:500,

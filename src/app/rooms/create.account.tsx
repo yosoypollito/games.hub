@@ -39,7 +39,7 @@ export default function CreateAccount({ id }:{ id?:string }){
     const user = await onAuthChange();
 
     if(user){
-      updateProfile(user,{
+      await updateProfile(user,{
         displayName
       });
     }

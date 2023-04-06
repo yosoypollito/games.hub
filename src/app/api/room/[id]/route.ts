@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 
 import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
 
-import { db } from "@/firebase/admin"
+import { db, auth } from "@/firebase/admin"
+import { FieldValue, FieldPath } from "firebase-admin/firestore";
 
 interface RoomParams{
 	params:{
@@ -59,9 +60,17 @@ export async function GET(request:Request, { params }:RoomParams){
 	}
 }
 
+import { StringMappingType } from "typescript";
+
 export async function PUT(req:Request, { params }:RoomParams){
 	try{
-		const body = req.body;
+		const body = await req.json();
+
+		if(!body){
+			return NextResponse.json({
+				message:"No Body"
+			})
+		}
 
 		const payload = await getTokenPayloadFromRequest(req);
 
@@ -70,6 +79,8 @@ export async function PUT(req:Request, { params }:RoomParams){
 				message:"Auth token not found or invalid"
 			})
 		}
+
+		const user = await auth.getUser(payload.uid);
 
 		const roomData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/room/${params.id}`).then(r=>r.json());
 
@@ -80,18 +91,20 @@ export async function PUT(req:Request, { params }:RoomParams){
 		const room = roomData.room;
 
 		const roomDoc = db.doc(`rooms/${params.id}`);
-
-		if(!body){
-			//Assign new leader
+		//Assign new leader and/or add to players
+		if(body.trans == "user.join"){
 			let newLead = payload.uid;
 
 			if(room.leader != ""){
 				newLead = room.leader;
 			}
 
-			roomDoc.set({
-				players:[...room.players, payload.uid],
-				newLead
+			roomDoc.update({
+				[`players.${user.uid}`]:{
+					displayName:user?.displayName || "",
+					uid:user.uid
+				},
+				leader:newLead
 			})
 
 			return NextResponse.json({
@@ -103,7 +116,8 @@ export async function PUT(req:Request, { params }:RoomParams){
 			status:200,
 			room:room
 		})
-	}catch(e){
+	}catch(e:any){
+		console.log(e.message)
 		return NextResponse.json({
 			message:"Invalid Auth token"
 		})

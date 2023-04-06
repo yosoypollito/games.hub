@@ -38,9 +38,22 @@ export const useAuth = ()=>{
     }
   });
 
+  const updateToken = ()=>new Promise(async (resolve, reject)=>{
+    try{
+      await signInAnonymously(auth);
+      const user = await onAuthChange();
+      console.log("Token Refresed")
+      resolve("Token Refresed");
+    }catch(e){
+      //TODO handle diff errors
+      reject(e);
+    }
+  })
+
   return {
     auth,
     onAuthChange,
-    anonSignIn
+    anonSignIn,
+    updateToken
   }
 };
