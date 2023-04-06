@@ -42,7 +42,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
   const [room, setRoom] = useState<Room.Item>({
     ...roomData
   });
-  console.log({room})
+  console.log({room, leader:room.leader})
 
   const startRoomRealTime = async ()=>{
     //TODO unsuscribe on close
@@ -94,7 +94,12 @@ export function Room({ roomData }:{ roomData: Room.Item }){
     <>
       <div className={styles.gamesHub}>
         <h2>Games</h2>
-        <UserList players={room.players}/>
+        <UserList {...{
+          players:{
+            ...room.players
+          },
+          leader:room.leader
+        }}/>
         <span>Leader: {room.players[room.leader].displayName}</span>
         {!(gamesDict[room.game]) ? Object.keys(gamesDict).map(game=>{
           const { label } = gamesDict[game];

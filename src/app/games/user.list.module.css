@@ -19,3 +19,19 @@
   color:black;
   background: white;
 }
+
+.userContainer{
+  display: flex;
+  flex-direction: row;
+
+  place-items: center;
+  gap:6px;
+}
+
+.userContainer svg{
+  height:24px;
+  stroke:gold;
+  stroke-width: 1px;
+  fill:none;
+}
+
