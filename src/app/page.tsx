@@ -1,11 +1,11 @@
-import CreateRoom from '@/app/rooms/create'
+import CreateAccount from "@/app/rooms/create.account"
 
 import styles from "@/app/page.module.css"
 
 export default function Home() {
   return (
     <main className={styles.center}>
-      <CreateRoom/>
+      <CreateAccount/>
     </main>
   )
 }
