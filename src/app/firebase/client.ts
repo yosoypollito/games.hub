@@ -11,7 +11,7 @@ export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
 
-export const useAuth = ()=>{
+export const Auth = ()=>{
   const auth = getAuth(app)
 
   const onAuthChange = ()=>new Promise<User | null>((resolve, reject)=>{

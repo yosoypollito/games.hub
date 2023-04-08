@@ -10,7 +10,7 @@ import { db } from "@/firebase/client";
 import { useEffect, useState } from "react";
 
 import type { User } from "firebase/auth";
-import { useAuth } from "@/firebase/client";
+import { Auth } from "@/firebase/client";
 
 import gamesDict from "@/app/games/games.dict";
 
@@ -23,7 +23,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
   const [user, setUser] = useState<User>();
 
   useEffect(()=>{
-    const { onAuthChange } = useAuth();
+    const { onAuthChange } = Auth();
 
     onAuthChange().then(user=>{
       if(user){
@@ -34,7 +34,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
 
   const docRef = doc(db, "rooms", id);
 
-  const useTurn = async (cell:number,i:number)=>{
+  const playTurn = async (cell:number,i:number)=>{
     if(winner){
       return toast.error("Some user already win")
     }
@@ -161,7 +161,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
           {board.map((cell, index)=>{
 
             return(
-              <div key={index} className={styles.cell} onClick={()=>useTurn(cell,index)}>
+              <div key={index} className={styles.cell} onClick={()=>playTurn(cell,index)}>
                 {cell == 1 && (
                   <RxCross2 className={styles.cross} />
                 )}

@@ -2,7 +2,7 @@
 import styles from "@/app/rooms/create.account.module.css"
 
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/firebase/client";
+import { Auth } from "@/firebase/client";
 import { useEffect, useState } from "react";
 
 import request from "@/api";
@@ -16,7 +16,7 @@ export default function CreateAccount({ id }:{ id?:string }){
 
   const [displayName, setDisplayName] = useState<string>("");
 
-  const { anonSignIn, onAuthChange } = useAuth();
+  const { anonSignIn, onAuthChange } = Auth();
 
   useEffect(()=>{
 

@@ -14,7 +14,7 @@ import gamesDict from "@/app/games/games.dict"
 import UserList from "@/app/games/user.list";
 
 import { useRoom } from "@/api";
-import { useAuth } from "@/firebase/client"
+import { Auth } from "@/firebase/client"
 
 export default function GamesHub({ id }:{ id:string }){
 
@@ -61,7 +61,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
   const changeGame = async (game:string)=>{
     const { startData } = gamesDict[game];
 
-    const { onAuthChange } = useAuth();
+    const { onAuthChange } = Auth();
 
     const user = await onAuthChange();
 

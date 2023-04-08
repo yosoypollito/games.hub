@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState} from "react";
 
-import { useAuth } from "@/app/firebase/client";
+import { Auth } from "@/app/firebase/client";
 
 import GamesHub from "@/app/games/games.hub";
 import CreateAccount from "@/app/rooms/create.account";
@@ -14,7 +14,7 @@ export default function UserJoin({ id }:{ id:string }){
 
   const router = useRouter();
 
-  const { onAuthChange, updateToken } = useAuth();
+  const { onAuthChange, updateToken } = Auth();
 
 
   const [userLoaded, setUserLoaded] = useState("create");
