@@ -2,22 +2,23 @@
 import type { Games } from "@/types"
 import styles from "@/app/games/tic.tac.toe.module.css"
 
+import toast from "react-hot-toast"
+
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "@/firebase/client";
 
 import { useEffect, useState } from "react";
 
-import { useAuth } from "@/firebase/client";
 import type { User } from "firebase/auth";
-
-
-import toast from "react-hot-toast"
+import { useAuth } from "@/firebase/client";
 
 import gamesDict from "@/app/games/games.dict";
 
+import { RxCross2, RxCircle } from "react-icons/rx"
+
 export default function TicTacToe({ gameData, players, id, leader }:Games.TicTacToe){
 
-  const { board, turn, turns, nextTurnValue, playersNeeded, winner } = gameData;
+  const { board, turn, turns, nextTurnValue, winner } = gameData;
 
   const [user, setUser] = useState<User>();
 
@@ -35,7 +36,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
 
   const useTurn = async (cell:number,i:number)=>{
     if(winner){
-      return toast.warn("Some user already win")
+      return toast.error("Some user already win")
     }
     if(cell != 0){
       return toast.error("You cant place in that cell");
@@ -47,7 +48,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
 
     if(turn.uid != user.uid){
       //TODO not your turn
-      return toast.warn("Not your turn");
+      return toast.error("Not your turn");
     }
     board[i] = nextTurnValue
 
@@ -162,17 +163,10 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
             return(
               <div key={index} className={styles.cell} onClick={()=>useTurn(cell,index)}>
                 {cell == 1 && (
-                  <svg className={styles.cross} viewBox="0 0 20 20">
-                    <path fill="none" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
-                      c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
-                      c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
-                      c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                  </svg>              )}
+                  <RxCross2 className={styles.cross} />
+                )}
                 {cell == 2 && (
-                  <svg className={styles.circle} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <circle cx="12" cy="12" r="9" />
-                  </svg>
+                  <RxCircle className={styles.circle}/>
                 )}
               </div>
             )
