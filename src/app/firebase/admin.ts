@@ -11,9 +11,5 @@ const app = (!getApps().length) ? initializeApp({
     privateKey
   })
 }) : getApps()[0];
-
-//const app = (!getApps().length) ? initializeApp({
-//credential: applicationDefault()
-//}) : getApps()[0];
 export const auth = getAuth();
 export const db = getFirestore(app);
