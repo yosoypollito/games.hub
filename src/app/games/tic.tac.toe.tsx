@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/firebase/client";
 import type { User } from "firebase/auth";
 
-import { toast } from "react-toastify";
+
+import toast from "react-hot-toast"
 
 import gamesDict from "@/app/games/games.dict";
 
@@ -40,7 +41,7 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
       return toast.error("You cant place in that cell");
     }
 
-    if(!user){
+    if(!user?.uid){
       return toast.error("No user found");
     }
 
@@ -60,6 +61,10 @@ export default function TicTacToe({ gameData, players, id, leader }:Games.TicTac
     const myPosition = playersKeys.indexOf(user.uid);
     const oponnentPosition = myPosition == 1 ? 0 : 1;
     const oponnentInfo = players[playersKeys[oponnentPosition]];
+
+    if(!oponnentInfo){
+      return toast.error("Waiting for opponent")
+    }
 
     const nextUserTurn = {
       uid:oponnentInfo.uid,

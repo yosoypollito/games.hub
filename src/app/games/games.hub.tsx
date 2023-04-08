@@ -7,8 +7,7 @@ import { useState, useEffect } from "react"
 import { db } from "@/firebase/client"
 import { onSnapshot, doc, updateDoc } from "firebase/firestore"
 
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from "react-hot-toast"
 
 import gamesDict from "@/app/games/games.dict"
 
@@ -113,7 +112,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
 
       </div>
 
-      <ToastContainer position="bottom-right"/>
+      <Toaster position="bottom-right"/>
     </>
   )
 }
