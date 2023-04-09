@@ -1,34 +1,25 @@
-import TTT from "./tic.tac.toe";
-
 import TicTacToe from "@/games/TicTacToe/Game";
 
-import type { Games, Room } from "@/types";
+import type { Room } from "@/types";
+
+import { TURNS } from "./TicTacToe/constants";
+
 
 const gamesDict:{
   [key:string]:{
     label:string,
-    startGame?:(currentData:Games.TicTacToe)=>React.ReactNode;
-    startData?:any;
-    component?:React.ReactNode
+    component:React.ReactElement | undefined
+    initState:Room.gameData
   }
 } = {
   "TicTacToe":{
     label:"Tic Tac Toe",
-    component:<TicTacToe/>
-  },
-  "ttt":{
-    label:"Tic Tac Toe (old)",
-    startGame:(currentData)=>{
-      return <TTT {...{
-        ...currentData
-      }}/>
-    },
-    startData:{
-      board:[0,0,0, 0,0,0, 0,0,0],
-      playersNeeded:2,
-      turn:0,
-      turns:[],
-      nextTurnValue:1,
+    component:<TicTacToe/>,
+    initState:{
+      board:Array(9).fill(null),
+      turn:TURNS.X,
+      winner:null,
+      lastTurn:null
     }
   }
 }

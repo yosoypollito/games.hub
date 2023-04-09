@@ -79,6 +79,6 @@ export const userSlice = createSlice({
 
 export const {} = userSlice.actions
 
-export const selectUser = (state: RootState)=> state.user
+export const selectUser = (state: RootState)=> state.user.data
 
 export default userSlice.reducer

@@ -27,33 +27,14 @@ export default function UserJoin({ id }:{ id:string }){
     }
   },[userState, dispatch, user, id])
 
-  if(userState === 'loading'){
-    return <>Getting User 🔃</>
-  }
-
-  if(userState === 'succeeded' && user.data == null){
-    //TODO redirect or create user
-    return <CreateAccount id={id}/>
-  }
-
-  if(userState === 'joining.to.room'){
-
-    return(
-      <>Joining to room</>
-    )
-  }
-
-  if(userState === 'joined.to.room'){
-
-    return (
-      <GamesHub id={id}/>
-    )
-  }
-
-  if(userState === 'join.to.room.failed'){
-    return (
-      <>Cant Join To Room</>
-    )
-  }
+  return (
+    <>
+      {userState === 'loading' && <>Getting User 🔃</>}
+      {userState === 'succeeded' && user == null && <CreateAccount id={id}/>}
+      {userState === 'joining.to.room' && <>Joining to room</>}
+      {userState === 'joined.to.room' && <GamesHub id={id}/>}
+      {userState === 'join.to.room.failed' && <>Cant join to room</>}
+    </>
+  )
 
 }

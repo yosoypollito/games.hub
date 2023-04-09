@@ -29,17 +29,13 @@ export default function GamesHub({ id }:{ id:string }){
     }
   },[roomStatus, dispatch, id])
 
-  if(roomStatus === 'loading'){
-    return <>Getting room information</>
-  }
-
-  if(roomStatus === 'succeeded'){
-    return <Room/>
-  }
-
-  if(roomStatus === 'failed'){
-    return <>Error getting room information</>
-  }
+  return (
+    <>
+      {['succeeded','loading.game', 'game.loaded', 'game.load.failed'].includes(roomStatus) && <Room/>}
+      {roomStatus === 'failed' && <>Error Getting room information</>}
+      {roomStatus === 'loading' && <>Getting room information</>}
+    </>
+  )
 }
 
 export function Room(){
@@ -67,6 +63,7 @@ export function Room(){
     }
 
   },[dispatch, room.id])
+
 
   return(
     <>

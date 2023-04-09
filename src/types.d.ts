@@ -7,18 +7,14 @@ export namespace Room{
 		}
 	}
 
+	export type gameData = Games.TicTacToe
+
 	export interface Item{
 		game:string;
 		players:players;
 		id:string;
 		leader:string;
-	}
-
-	export type State = {
-		leader:string;
-		game:string;
-		players:players;
-		id:string;
+		gameData?:gameData
 	}
 
 }
@@ -50,6 +46,13 @@ export namespace Games{
 			playersNeeded:number;
 			winner:User.Item | null
 		}
+	}
+
+	export interface TicTacToe {
+		board:Array<null | string>;
+		turn:string;
+		lastTurn:User.Item | null;
+		winner:null | false | string;
 	}
 }
 

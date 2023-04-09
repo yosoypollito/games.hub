@@ -1,22 +1,13 @@
 import gamesDict from "@/app/games/games.dict"
 import styles from "@/app/games/games.hub.module.css"
 
+import { useAppDispatch } from "@/redux/hooks"
+
+import { updateGame } from "@/redux/slices/room"
+
 export default function GameSelection(){
 
-  const changeGame = async (game:string)=>{
-    //const { startData } = gamesDict[game];
-
-    //await updateDoc(doc(db, "rooms", room.id),{
-    //game:game,
-    //gameData:{
-    //...startData,
-    //turn:{
-    //uid:user.uid,
-    //displayName:user.uid
-    //}
-    //}
-    //})
-  }
+  const dispatch = useAppDispatch()
 
   return(
     <>
@@ -24,7 +15,7 @@ export default function GameSelection(){
         const { label } = gamesDict[game];
 
         return (
-          <div key={game} className={styles.gameIcon} onClick={()=>changeGame(game)}>
+          <div key={game} className={styles.gameIcon} onClick={()=>dispatch(updateGame({ "game":game }))}>
             {label}
           </div>
         )
