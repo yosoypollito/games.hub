@@ -2,6 +2,9 @@ import styles from "@/app/games/user.list.module.css"
 
 import type { User } from "@/types"
 
+import { useAppSelector } from "@/redux/hooks";
+import { selectRoom } from "@/redux/slices/room";
+
 const User = ( { user, leader }:{ user:User.Item, leader:string })=>{
   const { displayName, uid } = user;
   return(
@@ -17,11 +20,9 @@ const User = ( { user, leader }:{ user:User.Item, leader:string })=>{
   )
 }
 
-export default function UserList({ players, leader }:{ players:{
-  [key:string]:User.Item
-}, leader:string }){
+export default function UserList(){
 
-  console.log({leader})
+  const { players, leader } = useAppSelector(selectRoom);
 
   return(
     <div className={styles.userList}>

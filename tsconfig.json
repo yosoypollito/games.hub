@@ -22,7 +22,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/firebase/*":["./src/app/firebase/*"],
-      "@/api/firebase/*":["./src/app/api/firebase/*"]
+      "@/api/firebase/*":["./src/app/api/firebase/*"],
+      "@/games/*":["./src/app/games/*"],
+      "@/redux/*":["./src/redux/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

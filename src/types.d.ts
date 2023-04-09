@@ -9,18 +9,23 @@ export namespace Room{
 
 	export interface Item{
 		game:string;
-		viewers:[];
 		players:players;
 		id:string;
 		leader:string;
-		gameData:any;
+	}
+
+	export type State = {
+		leader:string;
+		game:string;
+		players:players;
+		id:string;
 	}
 
 }
 
 export namespace User{
 
-	export type displayName = string;
+	export type displayName = string | null;
 	export type uid = string;
 
 	export interface Item{
@@ -31,7 +36,9 @@ export namespace User{
 
 export namespace Games{
 
-	export interface TicTacToe extends Room.Item{
+	export type State = TicTacToe 
+
+	export interface TTT extends Room.Item{
 		gameData:{
 			board:Array<number>;
 			turn:User.Item;
@@ -45,3 +52,9 @@ export namespace Games{
 		}
 	}
 }
+
+export type InitialState<T, S = {}> = {
+	data:T;
+	status: 'idle' | 'loading' | 'succeeded' | 'failed' | S;
+	error: null | string
+} 

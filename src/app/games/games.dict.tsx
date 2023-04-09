@@ -1,18 +1,25 @@
-import TicTacToe from "./tic.tac.toe";
+import TTT from "./tic.tac.toe";
+
+import TicTacToe from "@/games/TicTacToe/Game";
 
 import type { Games, Room } from "@/types";
 
 const gamesDict:{
   [key:string]:{
     label:string,
-    startGame:(currentData:Games.TicTacToe)=>React.ReactNode;
-    startData:any;
+    startGame?:(currentData:Games.TicTacToe)=>React.ReactNode;
+    startData?:any;
+    component?:React.ReactNode
   }
 } = {
-  "ttt":{
+  "TicTacToe":{
     label:"Tic Tac Toe",
+    component:<TicTacToe/>
+  },
+  "ttt":{
+    label:"Tic Tac Toe (old)",
     startGame:(currentData)=>{
-      return <TicTacToe {...{
+      return <TTT {...{
         ...currentData
       }}/>
     },

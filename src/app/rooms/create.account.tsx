@@ -10,6 +10,7 @@ import request from "@/api";
 
 import { updateProfile } from "firebase/auth";
 
+
 export default function CreateAccount({ id }:{ id?:string }){
 
   const router = useRouter();

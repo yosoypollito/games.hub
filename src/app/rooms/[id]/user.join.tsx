@@ -1,70 +1,59 @@
 "use client"
-import { useEffect, useState} from "react";
+import { useEffect } from "react";
 
-import { Auth } from "@/app/firebase/client";
 
 import GamesHub from "@/app/games/games.hub";
 import CreateAccount from "@/app/rooms/create.account";
 
-import request from "@/api";
-
-import { useRouter } from "next/navigation";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { selectUser, fetchUser, userJoinToRoom } from "@/redux/slices/user";
 
 export default function UserJoin({ id }:{ id:string }){
 
-  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const { onAuthChange, updateToken } = Auth();
-
-
-  const [userLoaded, setUserLoaded] = useState("create");
-
-  const startUser = async ()=>{
-    const token = localStorage.getItem("token");
-
-    if(token == null){
-      console.log('token null')
-      return;
-    }
-    const user = await onAuthChange();
-
-    if(!id){
-      console.log("No id provided to join");
-      return router.push("/");
-    }
-
-    await request({
-      method:"PUT",
-      url:`${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`,
-      headers:{
-        "Content-Type":"application/json",
-        Authorization:`Bearer ${localStorage.getItem("token")}`
-      },
-      data:{
-        trans:"user.join"
-      }
-    });
-
-    setUserLoaded("join.room");
-  }
+  const user = useAppSelector(selectUser);
+  const userState = useAppSelector(state => state.user.status)
 
   useEffect(()=>{
+    if(userState == 'idle'){
+      dispatch(fetchUser())
+    }
 
-    startUser();
+    if(id){
+      if(userState === 'succeeded' && user !== null){
+        dispatch(userJoinToRoom(id))
+      }
+    }
+  },[userState, dispatch, user, id])
 
-  },[userLoaded]);
+  if(userState === 'loading'){
+    return <>Getting User 🔃</>
+  }
 
-  if(userLoaded == "join.room"){
+  if(userState === 'succeeded' && user.data == null){
+    //TODO redirect or create user
+    return <CreateAccount id={id}/>
+  }
+
+  if(userState === 'joining.to.room'){
+
     return(
+      <>Joining to room</>
+    )
+  }
+
+  if(userState === 'joined.to.room'){
+
+    return (
       <GamesHub id={id}/>
     )
   }
 
-  if(userLoaded == "updating"){
+  if(userState === 'join.to.room.failed'){
     return (
-      <>🔃 Iniciando 🔃</>
+      <>Cant Join To Room</>
     )
   }
 
-  return <CreateAccount id={id}/>
 }

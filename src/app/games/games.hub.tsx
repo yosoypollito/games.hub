@@ -2,113 +2,81 @@
 import type { Room } from "@/types"
 import styles from "@/app/games/games.hub.module.css"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 
 import { db } from "@/firebase/client"
-import { onSnapshot, doc, updateDoc } from "firebase/firestore"
+import { onSnapshot, doc } from "firebase/firestore"
 
 import toast, { Toaster } from "react-hot-toast"
 
-import gamesDict from "@/app/games/games.dict"
+import gamesDict from "./games.dict"
+import GameSelection from "./GameSelection"
 
-import UserList from "@/app/games/user.list";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks"
+import { selectRoom, fetchRoom, updateRoom } from "@/redux/slices/room"
 
-import { useRoom } from "@/api";
-import { Auth } from "@/firebase/client"
+import RoomInformation from "@/games/RoomInformation"
+import UserList from "./user.list"
 
 export default function GamesHub({ id }:{ id:string }){
+  const dispatch = useAppDispatch();
 
-  const { data, error, isLoading } = useRoom(id);
+  const roomStatus = useAppSelector(state=>state.room.status);
 
-  if(isLoading){
-    return <>🚀 Loading your room 🚀</>
+  useEffect(()=>{
+    if(roomStatus === 'idle'){
+      dispatch(fetchRoom(id));
+    }
+  },[roomStatus, dispatch, id])
+
+  if(roomStatus === 'loading'){
+    return <>Getting room information</>
   }
-  if(error){
-    return <>some error</>
+
+  if(roomStatus === 'succeeded'){
+    return <Room/>
   }
 
-  return(
-    <>
-      <Room {...{
-        roomData:data.room
-      }}/>
-    </>
-  )
+  if(roomStatus === 'failed'){
+    return <>Error getting room information</>
+  }
 }
 
-export function Room({ roomData }:{ roomData: Room.Item }){
+export function Room(){
 
-  const [room, setRoom] = useState<Room.Item>({
-    ...roomData
-  });
-  console.log({room, leader:room.leader})
+  const dispatch = useAppDispatch();
+  const room = useAppSelector(selectRoom);
 
-  const startRoomRealTime = async ()=>{
-    //TODO unsuscribe on close
+  useEffect(()=>{
+
     const unRoom = onSnapshot(doc(db, "rooms", room.id), (doc) => {
-      const data = doc.data();
-      if(!data){
+      const newData = doc.data();
+      if(!newData){
         //TODO handle errors;
         return toast.error("Can't update game")
       }
-      setRoom({
-        ...room,
-        ...data,
-      });
+
+      dispatch(updateRoom({
+        ...newData,
+      }))
     });
-  }
 
-  const changeGame = async (game:string)=>{
-    const { startData } = gamesDict[game];
+    return ()=>{
+      //TODO unsuscribe firebase/handle disconnect
 
-    const { onAuthChange } = Auth();
-
-    const user = await onAuthChange();
-
-    if(room.leader != user?.uid){
-      return toast.error("You are not the room leader")
     }
 
-    if(!user){
-      return toast.error("No user found");
-    }
-
-    await updateDoc(doc(db, "rooms", room.id),{
-      game:game,
-      gameData:{
-        ...startData,
-        turn:{
-          uid:user.uid,
-          displayName:user.uid
-        }
-      }
-    })
-  }
-
-  useEffect(()=>{
-    startRoomRealTime();
-  },[room])
+  },[dispatch, room.id])
 
   return(
     <>
       <div className={styles.gamesHub}>
         <h2>Games</h2>
-        <UserList {...{
-          players:{
-            ...room.players
-          },
-          leader:room.leader
-        }}/>
-        <span>Leader: {room.players[room.leader].displayName}</span>
-        {!(gamesDict[room.game]) ? Object.keys(gamesDict).map(game=>{
-          const { label } = gamesDict[game];
-
-          return (
-            <div key={game} className={styles.gameIcon} onClick={()=>changeGame(game)}>
-              {label}
-            </div>
-          )
-        }) : (gamesDict[room.game].startGame({ ...room }))}
+        <UserList/>
+        <RoomInformation/>
+        { !(gamesDict[room.game]) 
+          ? <GameSelection/>
+          : gamesDict[room.game].component}
 
       </div>
 
