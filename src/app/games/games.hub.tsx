@@ -87,7 +87,7 @@ export function Room({ roomData }:{ roomData: Room.Item }){
 
   useEffect(()=>{
     startRoomRealTime();
-  },[])
+  },[room])
 
   return(
     <>
