@@ -14,7 +14,7 @@ export default function UserJoin({ id }: { id: string }) {
   const userState = useAppSelector((state) => state.user.status);
 
   useEffect(() => {
-    if (userState == "idle") {
+    if (userState === "idle") {
       dispatch(fetchUser());
     }
 

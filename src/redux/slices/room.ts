@@ -7,6 +7,8 @@ import gamesDict from "@/app/games/games.dict";
 import { updateDoc, doc, type UpdateData } from "firebase/firestore";
 import { db } from "@/app/firebase/client";
 
+import request from "@/api";
+
 export const fetchRoom = createAsyncThunk(
   "room/fetchRoom",
   async (id: string) => {
@@ -128,5 +130,3 @@ export const selectRoom = (state: RootState) => state.room.data;
 export const selectGameData = (state: RootState) => state.room.data.gameData;
 
 export default roomSlice.reducer;
-
-import request from "@/api";

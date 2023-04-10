@@ -5,6 +5,8 @@ import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
 import { db, auth } from "@/firebase/admin";
 import { FieldValue, FieldPath } from "firebase-admin/firestore";
 
+import { StringMappingType } from "typescript";
+
 interface RoomParams {
   params: {
     id: string;
@@ -57,8 +59,6 @@ export async function GET(request: Request, { params }: RoomParams) {
     });
   }
 }
-
-import { StringMappingType } from "typescript";
 
 export async function PUT(req: Request, { params }: RoomParams) {
   try {
