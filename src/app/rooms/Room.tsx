@@ -1,13 +1,12 @@
-import { Provider } from 'react-redux'
-import store from '@/redux/store'
+import { Provider } from "react-redux";
+import store from "@/redux/store";
 
-import CreateAccount from "@/app/rooms/create.account"
+import CreateAccount from "@/app/rooms/create.account";
 
-export default function Room(){
-
-  return(
+export default function Room() {
+  return (
     <Provider store={store}>
-      <CreateAccount/>
+      <CreateAccount />
     </Provider>
-  )
+  );
 }

@@ -1,56 +1,56 @@
-.themeButton{
-  display:flex;
-  flex-direction:row;
+.themeButton {
+  display: flex;
+  flex-direction: row;
 
-  justify-content:flex-end;
+  justify-content: flex-end;
 
   grid-row: span 1;
 }
 
-.themeButton input{
-  display:none;
+.themeButton input {
+  display: none;
 }
 
-.themeButton label{
-  position:relative;
-  display:flex;
-  place-content:center;
+.themeButton label {
+  position: relative;
+  display: flex;
+  place-content: center;
 
-  width:60px;
+  width: 60px;
 
-  background:var(--theme-background);
+  background: var(--theme-background);
 
-  border-radius:16px;
+  border-radius: 16px;
 
-  cursor:pointer;
+  cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-.themeButton label > svg{
-  display:flex;
-  width:30px;
-  height:30px;
+.themeButton label > svg {
+  display: flex;
+  width: 30px;
+  height: 30px;
 
-  border-radius:50%;
+  border-radius: 50%;
 
-  padding:3px;
+  padding: 3px;
 
-  background:var(--theme-switch);
-  stroke:white;
+  background: var(--theme-switch);
+  stroke: white;
 
-  transform:translate(-50%);
-  transition:all 300ms;
+  transform: translate(-50%);
+  transition: all 300ms;
 
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.themeButton label > svg{
-  stroke-width:1.5px;
-  stroke-linecap:round;
-  fill:none;
+.themeButton label > svg {
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  fill: none;
 }
 
-
-.themeButton input:checked ~ label > svg{
-  transform:translate(50%);
+.themeButton input:checked ~ label > svg {
+  transform: translate(50%);
 }

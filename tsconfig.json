@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -21,10 +21,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/firebase/*":["./src/app/firebase/*"],
-      "@/api/firebase/*":["./src/app/api/firebase/*"],
-      "@/games/*":["./src/app/games/*"],
-      "@/redux/*":["./src/redux/*"]
+      "@/firebase/*": ["./src/app/firebase/*"],
+      "@/api/firebase/*": ["./src/app/api/firebase/*"],
+      "@/games/*": ["./src/app/games/*"],
+      "@/redux/*": ["./src/redux/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

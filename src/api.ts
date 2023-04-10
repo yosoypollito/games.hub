@@ -1,30 +1,36 @@
-import axios, { type AxiosRequestConfig } from "axios"
+import axios, { type AxiosRequestConfig } from "axios";
 
-const handleResponse = async <T>(config:AxiosRequestConfig): Promise<T | null> =>{
-	try{
-		const { data } = await axios<T>(config);
-		console.log({ data })
-		return data;
-	}catch(e:any){
-		console.log(e.message);
-		return null;
-	}
-}
+import useSWR from "swr";
 
-const request = <T>(config:AxiosRequestConfig<T>)=>handleResponse<T>(config)
+const handleResponse = async <T>(
+  config: AxiosRequestConfig
+): Promise<T | null> => {
+  try {
+    const { data } = await axios<T>(config);
+    console.log({ data });
+    return data;
+  } catch (e: any) {
+    console.log(e.message);
+    return null;
+  }
+};
+
+const request = <T>(config: AxiosRequestConfig<T>) => handleResponse<T>(config);
 
 export default request;
 
-import useSWR from "swr"
+const fetcher = (input: RequestInfo, init?: RequestInit) =>
+  fetch(input, init).then((res) => res.json());
 
-const fetcher = (input:RequestInfo, init?:RequestInit)=> fetch(input, init).then(res=>res.json())
+export const useRoom = (id?: string) => {
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`,
+    fetcher
+  );
 
-export const useRoom = (id?:string)=>{
-	const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`, fetcher);
-
-	return {
-		data,
-		error,
-		isLoading
-	}
-}
+  return {
+    data,
+    error,
+    isLoading,
+  };
+};

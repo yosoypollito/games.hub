@@ -3,14 +3,14 @@ import roomReducer from "@/redux/slices/room";
 import userReducer from "@/redux/slices/user";
 
 const store = configureStore({
-	reducer:{
-		room:roomReducer,
-		user:userReducer
-	}
-})
+  reducer: {
+    room: roomReducer,
+    user: userReducer,
+  },
+});
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
 
-export default store
+export default store;

@@ -1,107 +1,107 @@
-*{
-  font-family:inherit;
-  padding:0;
-  margin:0;
-  box-sizing:border-box;
+* {
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-:root{
-  --detail:#FCA311;
-  --grey:#E5E5E5;
-  --blue:#14213D;
+:root {
+  --detail: #fca311;
+  --grey: #e5e5e5;
+  --blue: #14213d;
 }
 
-:root.dark{
-  --background:#000000;
-  --text-color:#ffffff;
-  --cards-background:var(--blue);
+:root.dark {
+  --background: #000000;
+  --text-color: #ffffff;
+  --cards-background: var(--blue);
 
+  --pink: #b265c6;
+  --red: #ff4468;
 
-  --pink:#b265c6;
-  --red:#ff4468;
+  --cross-color: var(--pink);
+  --circle-color: var(--red);
 
-  --cross-color:var(--pink);
-  --circle-color:var(--red);
+  --theme-background: var(--red);
+  --theme-switch: var(--pink);
 
-  --theme-background:var(--red);
-  --theme-switch:var(--pink);
+  --button-shadow-color: var(--red);
+  --button-background: var(--pink);
+  --button-text-color: white;
 
-  --button-shadow-color:var(--red);
-  --button-background:var(--pink);
-  --button-text-color:white;
+  --input-background: white;
+  --input-border-color: var(--red);
+  --input-text-color: black;
 
-  --input-background:white;
-  --input-border-color:var(--red);
-  --input-text-color:black;
-
-  --game-icon-background:var(--pink);
-  --game-icon-text-color:white;
-  --game-icon-shadow-color:var(--red);
+  --game-icon-background: var(--pink);
+  --game-icon-text-color: white;
+  --game-icon-shadow-color: var(--red);
 }
-:root.light{
-  --background:var(--grey);
-  --text-color:#000000;
+:root.light {
+  --background: var(--grey);
+  --text-color: #000000;
 
-  --light-blue:#00dcf5;
-  --black:#252234;
+  --light-blue: #00dcf5;
+  --black: #252234;
 
-  --cross-color:var(--light-blue);
-  --circle-color:var(--black);
+  --cross-color: var(--light-blue);
+  --circle-color: var(--black);
 
-  --theme-background:var(--light-blue);
-  --theme-switch:var(--black);
+  --theme-background: var(--light-blue);
+  --theme-switch: var(--black);
 
-  --button-shadow-color:var(--light-blue);
-  --button-background:var(--black);
-  --button-text-color:white;
+  --button-shadow-color: var(--light-blue);
+  --button-background: var(--black);
+  --button-text-color: white;
 
-  --input-background:white;
-  --input-border-color:var(--light-blue);
-  --input-text-color:black;
+  --input-background: white;
+  --input-border-color: var(--light-blue);
+  --input-text-color: black;
 
-  --game-icon-background:var(--black);
-  --game-icon-text-color:white;
-  --game-icon-shadow-color:var(--light-blue);
+  --game-icon-background: var(--black);
+  --game-icon-text-color: white;
+  --game-icon-shadow-color: var(--light-blue);
 
-  --cards-background:var(--grey);
-}
-
-body{
-  background:var(--background);
-  color:var(--text-color);
-  padding:16px;
-
-  display:grid;
-  grid-template-rows:min-content 1fr;
-
-  gap:12px;
+  --cards-background: var(--grey);
 }
 
-html,body{
-  height:100%;
+body {
+  background: var(--background);
+  color: var(--text-color);
+  padding: 16px;
+
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
+  gap: 12px;
 }
 
-button{
-  display:flex;
-  flex-direction:row;
-  place-content:center;
-  place-items:center;
+html,
+body {
+  height: 100%;
+}
+
+button {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  place-items: center;
 
   cursor: pointer;
 
-  font-size:16px;
-  padding:6px 18px;
-  border:0;
+  font-size: 16px;
+  padding: 6px 18px;
+  border: 0;
 
   text-transform: capitalize;
   font-weight: 600;
-  background:var(--button-background);
-  color:var(--button-text-color);
+  background: var(--button-background);
+  color: var(--button-text-color);
 
   box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
 }
 
-input{
-  border:none;
+input {
+  border: none;
   outline: none;
 }

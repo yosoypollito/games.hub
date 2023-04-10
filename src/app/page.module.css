@@ -1,6 +1,6 @@
-.center{
-  display:flex;
-  place-content:center;
+.center {
+  display: flex;
+  place-content: center;
   place-items: center;
 
   height: 100%;

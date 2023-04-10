@@ -1,13 +1,12 @@
-"use client"
-import Room from "./rooms/Room"
+"use client";
+import Room from "./rooms/Room";
 
-import styles from "@/app/page.module.css"
+import styles from "@/app/page.module.css";
 
 export default function Home() {
-
   return (
     <main className={styles.center}>
-      <Room/>
+      <Room />
     </main>
-  )
+  );
 }

@@ -1,37 +1,36 @@
-.userList{
-  display:flex;
+.userList {
+  display: flex;
 
   flex-direction: column;
 
-  gap:12px;
+  gap: 12px;
 
   position: absolute;
-  top:50%;
-  left:0;
+  top: 50%;
+  left: 0;
 
-  padding:12px;
+  padding: 12px;
   padding-left: 3px;
 
   border-radius: 0px 8px 8px 0px;
 
-  font-size:14px;
+  font-size: 14px;
 
-  color:black;
+  color: black;
   background: white;
 }
 
-.userContainer{
+.userContainer {
   display: flex;
   flex-direction: row;
 
   place-items: center;
-  gap:6px;
+  gap: 6px;
 }
 
-.userContainer svg{
-  height:24px;
-  stroke:gold;
+.userContainer svg {
+  height: 24px;
+  stroke: gold;
   stroke-width: 1px;
-  fill:none;
+  fill: none;
 }
-
