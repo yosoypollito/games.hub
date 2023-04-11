@@ -9,12 +9,6 @@
   text-align: center;
 }
 
-.createRoom {
-  font-size: 12px;
-  transform: skewX(-16deg);
-  width: 300px;
-}
-
 .create input {
   display: flex;
   padding: 6px;
@@ -27,4 +21,13 @@
 
 .create span {
   font-size: 12px;
+}
+
+.roomForm {
+  display: flex;
+  flex-direction: column;
+
+  text-align: left;
+
+  gap: 6px;
 }

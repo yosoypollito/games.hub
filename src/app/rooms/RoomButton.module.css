@@ -1,0 +1,20 @@
+.roomButton {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  place-items: center;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  padding: 6px 18px;
+  border: 0;
+
+  text-transform: capitalize;
+  font-weight: 600;
+  background: var(--button-background);
+  color: var(--button-text-color);
+
+  box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
+  font-size: 12px;
+}

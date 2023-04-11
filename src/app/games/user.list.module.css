@@ -16,8 +16,8 @@
 
   font-size: 14px;
 
-  color: black;
-  background: white;
+  color: var(--user-list-text-color);
+  background: var(--user-list-container-background);
 }
 
 .userContainer {
@@ -26,6 +26,12 @@
 
   place-items: center;
   gap: 6px;
+
+  background: var(--user-list-item-background);
+
+  padding: 3px 12px;
+  border-radius: 16px;
+  height: 30px;
 }
 
 .userContainer svg {

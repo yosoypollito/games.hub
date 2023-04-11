@@ -62,15 +62,18 @@ export default function Board() {
 
   return (
     <div className={styles.board}>
-      {game.board.map((square: null | string, index: number) => {
-        return (
-          <Square key={index} index={index} updateBoard={updateBoard}>
-            {square}
-          </Square>
-        );
-      })}
-
-      <WinnerModal />
+      {game.winner !== null ? (
+        <WinnerModal />
+      ) : (
+        game.board.map((square: null | string, index: number) => {
+          return (
+            <Square key={index} index={index} updateBoard={updateBoard}>
+              {square === TURNS.X && "❌"}
+              {square === TURNS.O && "⭕"}
+            </Square>
+          );
+        })
+      )}
     </div>
   );
 }

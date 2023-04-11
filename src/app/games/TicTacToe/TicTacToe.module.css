@@ -1,17 +1,46 @@
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 
   width: 300px;
   height: 300px;
 
-  gap: 18px;
+  gap: 12px;
 }
 
 .square {
   display: flex;
+
+  place-items: center;
+  place-content: center;
   width: 100%;
   height: 100%;
 
-  border: 1px solid lime;
+  border: 2px solid var(--square-border);
+
+  border-radius: 16px;
+
+  grid-column: span 1;
+  grid-row: span 1;
+
+  font-size: 40px;
+}
+
+.winner {
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 32px;
+
+  place-content: space-between;
+  place-items: center;
+
+  grid-column: span 3;
+  grid-row: span 3;
+}
+
+.winner header {
+  font-size: 40px;
 }

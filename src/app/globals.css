@@ -9,6 +9,8 @@
   --detail: #fca311;
   --grey: #e5e5e5;
   --blue: #14213d;
+
+  --label-text-color: #9ca3af;
 }
 
 :root.dark {
@@ -36,6 +38,12 @@
   --game-icon-background: var(--pink);
   --game-icon-text-color: white;
   --game-icon-shadow-color: var(--red);
+
+  --user-list-item-background: var(--red);
+  --user-list-container-background: var(--pink);
+  --user-list-text-color: white;
+
+  --square-border: var(--pink);
 }
 :root.light {
   --background: var(--grey);
@@ -63,6 +71,12 @@
   --game-icon-shadow-color: var(--light-blue);
 
   --cards-background: var(--grey);
+
+  --user-list-item-background: var(--blue);
+  --user-list-container-background: var(--light-blue);
+  --user-list-text-color: white;
+
+  --square-border: var(--light-blue);
 }
 
 body {
@@ -79,26 +93,6 @@ body {
 html,
 body {
   height: 100%;
-}
-
-button {
-  display: flex;
-  flex-direction: row;
-  place-content: center;
-  place-items: center;
-
-  cursor: pointer;
-
-  font-size: 16px;
-  padding: 6px 18px;
-  border: 0;
-
-  text-transform: capitalize;
-  font-weight: 600;
-  background: var(--button-background);
-  color: var(--button-text-color);
-
-  box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
 }
 
 input {

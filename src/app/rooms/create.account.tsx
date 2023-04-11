@@ -9,6 +9,10 @@ import request from "@/api";
 
 import { updateProfile } from "firebase/auth";
 
+import RoomButton from "./RoomButton";
+import RoomInput from "./RoomInput";
+import Label from "@/components/Label";
+
 export default function CreateAccount({ id }: { id?: string }) {
   const router = useRouter();
 
@@ -66,13 +70,11 @@ export default function CreateAccount({ id }: { id?: string }) {
           First change your name until start playing with your friends
         </span>
       )}
-      <label>
-        Name
-        <input onChange={changeDisplayName} value={displayName} />
-      </label>
-      <button onClick={createUser} className={styles.createRoom}>
-        Create room
-      </button>
+      <div className={styles.roomForm}>
+        <Label htmlFor="name">Name</Label>
+        <RoomInput onChange={changeDisplayName} value={displayName} id="name" />
+        <RoomButton onClick={createUser}>Create Room</RoomButton>
+      </div>
       <span>
         By clicking the button above you are allowing the creation of an
         anonymous account.

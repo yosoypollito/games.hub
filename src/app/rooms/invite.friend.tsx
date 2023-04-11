@@ -1,5 +1,7 @@
 "use client";
 
+import RoomButton from "./RoomButton";
+
 export default function InviteFriend({ params }: { params: { id: string } }) {
   const copyUrl = () => {
     const url = `${window.location.origin}/rooms/${id}`;
@@ -9,7 +11,7 @@ export default function InviteFriend({ params }: { params: { id: string } }) {
   const { id } = params;
   return (
     <div>
-      <button onClick={copyUrl}>Invite your friends</button>
+      <RoomButton onClick={copyUrl}>Invite your friends</RoomButton>
     </div>
   );
 }
