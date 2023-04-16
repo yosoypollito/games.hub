@@ -11,7 +11,7 @@ export default function Game() {
   const roomStatus = useAppSelector((state) => state.room.status);
 
   useEffect(() => {
-    if (roomStatus === "succeeded") {
+    if (roomStatus === "joined.to.room") {
       dispatch(
         initGame({
           game: "TicTacToe",

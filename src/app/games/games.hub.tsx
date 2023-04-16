@@ -19,6 +19,7 @@ import {
   fetchRoom,
   updateRoom,
   userJoinToRoom,
+  updateGame,
 } from "@/redux/slices/room";
 
 import UserList from "./UserList";
@@ -81,7 +82,12 @@ export const RoomHub = () => {
     };
   }, [dispatch, room.id]);
 
-  const goBackToGames = () => {};
+  const goBackToGames = () =>
+    dispatch(
+      updateGame({
+        game: "default",
+      })
+    );
 
   return (
     <>
