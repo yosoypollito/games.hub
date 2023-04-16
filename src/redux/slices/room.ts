@@ -1,7 +1,8 @@
+import store from "@/redux/store";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
 
-import type { Room, InitialState } from "@/types";
+import type { Room, InitialState, User } from "@/types";
 
 import gamesDict from "@/app/games/games.dict";
 import { updateDoc, doc, type UpdateData } from "firebase/firestore";
@@ -60,7 +61,7 @@ export const initGame = createAsyncThunk<
 
     const roomRef = doc(db, "rooms", room.id);
 
-    if (room.gameData == undefined || force) {
+    if (room.gameData == null || force) {
       await updateDoc(roomRef, {
         gameData: initState,
       });
@@ -89,12 +90,12 @@ export const updateGame = createAsyncThunk<
 
 const initialState: InitialState<
   Room.Item,
-  | "joining.to.room"
-  | "joined.to.room"
-  | "join.to.room.failed"
   | "loading.game"
   | "game.loaded"
   | "game.load.failed"
+  | "joining.to.room"
+  | "joined.to.room"
+  | "join.to.room.failed"
 > = {
   data: {
     id: "",
@@ -115,6 +116,9 @@ export const roomSlice = createSlice({
         ...state.data,
         ...action.payload,
       };
+    },
+    resetRoom(state) {
+      state = initialState;
     },
   },
   extraReducers(builder) {
@@ -159,7 +163,16 @@ export const roomSlice = createSlice({
   },
 });
 
-export const { updateRoom } = roomSlice.actions;
+export const { updateRoom, resetRoom } = roomSlice.actions;
+
+export const userInRoom = (id: User.uid) =>
+  store.dispatch((dispatch, getState) => {
+    const roomData = getState().room.data;
+
+    const Players = Object.keys(roomData.players);
+
+    return Players.includes(id);
+  });
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectRoom = (state: RootState) => state.room.data;

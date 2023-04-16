@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Board from "./Board";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { initGame } from "@/redux/slices/room";
+import { initGame, resetRoom, updateGame } from "@/redux/slices/room";
 
 export default function Game() {
   const dispatch = useAppDispatch();
@@ -11,14 +11,20 @@ export default function Game() {
   const roomStatus = useAppSelector((state) => state.room.status);
 
   useEffect(() => {
-    if (roomStatus === "joined.to.room") {
+    dispatch(
+      initGame({
+        game: "TicTacToe",
+      })
+    );
+
+    return () => {
       dispatch(
-        initGame({
-          game: "TicTacToe",
+        updateGame({
+          gameData: null,
         })
       );
-    }
-  }, [roomStatus, dispatch]);
+    };
+  }, [dispatch]);
 
   return (
     <>

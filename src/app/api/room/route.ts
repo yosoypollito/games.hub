@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { db } from "@/app/firebase/admin";
 import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
+import { db, auth } from "@/firebase/admin";
 
 export async function GET(request: Request) {
   try {
@@ -27,9 +27,16 @@ export async function POST(req: Request) {
       });
     }
 
+    const user = await auth.getUser(payload.uid);
+
     const room = await db.collection("rooms").add({
       game: "default",
-      players: {},
+      players: {
+        [user.uid]: {
+          displayName: user?.displayName || "",
+          uid: user.uid,
+        },
+      },
       leader: payload.uid,
     });
 

@@ -18,6 +18,7 @@ import {
   fetchUser,
   updateUser,
 } from "@/redux/slices/user";
+import { userJoinToRoom } from "@/redux/slices/room";
 
 export default function CreateAccount({ id }: { id?: Room.Id }) {
   const router = useRouter();
@@ -58,6 +59,10 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
         displayName,
       })
     );
+
+    if (id) {
+      return await dispatch(userJoinToRoom(id));
+    }
 
     const data = await request<{
       status: number;

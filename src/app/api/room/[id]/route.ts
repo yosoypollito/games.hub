@@ -3,9 +3,6 @@ import { NextResponse } from "next/server";
 import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
 
 import { db, auth } from "@/firebase/admin";
-import { FieldValue, FieldPath } from "firebase-admin/firestore";
-
-import { StringMappingType } from "typescript";
 
 interface RoomParams {
   params: {

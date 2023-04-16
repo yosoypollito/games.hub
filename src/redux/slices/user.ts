@@ -3,7 +3,6 @@ import { RootState } from "@/redux/store";
 
 import type { User, InitialState } from "@/types";
 
-import request from "@/api";
 import { Auth } from "@/firebase/client";
 
 import { updateProfile } from "firebase/auth";
@@ -32,7 +31,7 @@ export const createAccount = createAsyncThunk(
 
       return "Account created";
     } catch (e) {
-      console.log("Error during account creationg");
+      console.log("Error during account creation");
     }
   }
 );
