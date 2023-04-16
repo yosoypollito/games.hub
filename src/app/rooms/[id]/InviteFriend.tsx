@@ -5,6 +5,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectRoom } from "@/redux/slices/room";
 
 import { toast } from "react-hot-toast";
+import { IconLink } from "@tabler/icons-react";
 
 export default function InviteFriend() {
   const room = useAppSelector(selectRoom);
@@ -15,5 +16,9 @@ export default function InviteFriend() {
     toast.success("Copied");
   };
 
-  return <Button onClick={copyUrl}>Invite your friends</Button>;
+  return (
+    <Button onClick={copyUrl}>
+      <IconLink strokeWidth={1.5} />
+    </Button>
+  );
 }
