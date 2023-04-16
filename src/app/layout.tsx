@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Space_Grotesk } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import NavBar from "@/app/nav.bar";
 
@@ -8,7 +8,7 @@ export const metadata = {
   description: "Created by Daif with Next.js and firebase",
 };
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={spaceGrotesk.className}>
+      <body className={montserrat.className}>
         <NavBar />
         {children}
       </body>

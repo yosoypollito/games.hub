@@ -1,4 +1,5 @@
 import TicTacToe from "@/games/TicTacToe/Game";
+import RPS from "@/games/RPS/Game";
 
 import type { Room } from "@/types";
 
@@ -20,6 +21,11 @@ const gamesDict: {
       winner: null,
       lastTurn: null,
     },
+  },
+  RPS: {
+    label: "Rock Paper Scissors",
+    component: <RPS />,
+    initState: {},
   },
 };
 

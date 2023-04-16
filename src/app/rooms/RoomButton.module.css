@@ -4,9 +4,10 @@
   place-content: center;
   place-items: center;
 
+  letter-spacing: 1.5px;
+
   cursor: pointer;
 
-  font-size: 16px;
   padding: 6px 18px;
   border: 0;
 

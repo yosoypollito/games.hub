@@ -1,5 +1,12 @@
-import UserJoin from "@/app/rooms/[id]/user.join";
+"use client";
+import { Room } from "@/types";
+import UserInit from "../UserInit";
+import GamesHub from "@/app/games/games.hub";
 
-export default function RoomHub({ params }: { params: { id: string } }) {
-  return <UserJoin id={params.id} />;
+export default function Hub({ params }: { params: { id: Room.Id } }) {
+  return (
+    <UserInit>
+      <GamesHub id={params.id} />
+    </UserInit>
+  );
 }

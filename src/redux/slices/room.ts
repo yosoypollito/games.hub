@@ -9,9 +9,28 @@ import { db } from "@/app/firebase/client";
 
 import request from "@/api";
 
+export const userJoinToRoom = createAsyncThunk(
+  "room/userJoinToRoom",
+  async (id: string) => {
+    const room = await request({
+      method: "PUT",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      data: {
+        trans: "user.join",
+      },
+    });
+
+    return room;
+  }
+);
+
 export const fetchRoom = createAsyncThunk(
   "room/fetchRoom",
-  async (id: string) => {
+  async (id: Room.Id) => {
     const data = await request<{
       room: Room.Item;
     }>({
@@ -70,7 +89,12 @@ export const updateGame = createAsyncThunk<
 
 const initialState: InitialState<
   Room.Item,
-  "loading.game" | "game.loaded" | "game.load.failed"
+  | "joining.to.room"
+  | "joined.to.room"
+  | "join.to.room.failed"
+  | "loading.game"
+  | "game.loaded"
+  | "game.load.failed"
 > = {
   data: {
     id: "",
@@ -119,6 +143,18 @@ export const roomSlice = createSlice({
       })
       .addCase(initGame.rejected, (state) => {
         state.status = "game.load.failed";
+      });
+
+    builder
+      .addCase(userJoinToRoom.pending, (state) => {
+        state.status = "joining.to.room";
+      })
+      .addCase(userJoinToRoom.fulfilled, (state) => {
+        state.status = "joined.to.room";
+      })
+      .addCase(userJoinToRoom.rejected, (state, action) => {
+        state.status = "join.to.room.failed";
+        state.error = action.error.message || null;
       });
   },
 });

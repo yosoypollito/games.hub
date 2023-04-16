@@ -1,32 +1,44 @@
 "use client";
+import { Room } from "@/types";
 import styles from "@/app/rooms/create.account.module.css";
 
 import { useRouter } from "next/navigation";
-import { Auth } from "@/firebase/client";
 import { useEffect, useState } from "react";
 
 import request from "@/api";
-
-import { updateProfile } from "firebase/auth";
 
 import RoomButton from "./RoomButton";
 import RoomInput from "./RoomInput";
 import Label from "@/components/Label";
 
-export default function CreateAccount({ id }: { id?: string }) {
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import {
+  selectUser,
+  createAccount,
+  fetchUser,
+  updateUser,
+} from "@/redux/slices/user";
+
+export default function CreateAccount({ id }: { id?: Room.Id }) {
   const router = useRouter();
 
-  const [displayName, setDisplayName] = useState<string>("");
-
-  const { anonSignIn, onAuthChange } = Auth();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const userState = useAppSelector((state) => state.user.status);
 
   useEffect(() => {
-    onAuthChange().then((user) => {
-      if (user) {
-        setDisplayName(user.displayName || "");
-      }
-    });
+    if (userState === "idle") {
+      dispatch(fetchUser());
+    }
   }, []);
+
+  const [displayName, setDisplayName] = useState<string>((): string => {
+    if (user?.displayName) {
+      return user.displayName;
+    }
+
+    return "";
+  });
 
   const changeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -34,17 +46,21 @@ export default function CreateAccount({ id }: { id?: string }) {
   };
 
   const createUser = async () => {
-    await anonSignIn();
-    const user = await onAuthChange();
+    // Create user account or signin
+    await dispatch(createAccount());
 
-    if (user) {
-      await updateProfile(user, {
-        displayName,
-      });
+    if (!user) {
+      await dispatch(fetchUser());
     }
 
+    await dispatch(
+      updateUser({
+        displayName,
+      })
+    );
+
     if (id) {
-      return window.location.reload();
+      dispatch(userJoinToRoom(id));
     }
 
     const data = await request<{

@@ -1,3 +1,4 @@
+import { Games } from "@/types";
 import styles from "./TicTacToe.module.css";
 
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -19,7 +20,7 @@ import WinnerModal from "./WinnerModal";
 export default function Board() {
   const dispatch = useAppDispatch();
   const room = useAppSelector(selectRoom);
-  const game = useAppSelector(selectGameData);
+  const game: Games.TicTacToe = useAppSelector(selectGameData);
 
   const user = useAppSelector(selectUser);
 
@@ -35,7 +36,7 @@ export default function Board() {
       return;
     }
 
-    if (lastTurn?.uid == user.uid || (!lastTurn && room.leader != user.uid)) {
+    if (lastTurn?.uid === user.uid || (!lastTurn && room.leader !== user.uid)) {
       return toast.error("Not your turn");
     }
 

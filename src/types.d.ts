@@ -6,12 +6,14 @@ export namespace Room {
     };
   }
 
-  export type gameData = Games.TicTacToe;
+  export type Id = string;
+
+  export type gameData = ReturnType<Games.TicTacToe | Games.RPS>;
 
   export interface Item {
     game: string;
     players: players;
-    id: string;
+    id: Id;
     leader: string;
     gameData?: gameData;
   }
@@ -30,25 +32,15 @@ export namespace User {
 export namespace Games {
   export type State = TicTacToe;
 
-  export interface TTT extends Room.Item {
-    gameData: {
-      board: number[];
-      turn: User.Item;
-      turns: Array<{
-        uid: User.uid;
-        position: number;
-      }>;
-      nextTurnValue: number;
-      playersNeeded: number;
-      winner: User.Item | null;
-    };
-  }
-
   export interface TicTacToe {
     board: Array<null | string>;
     turn: string;
     lastTurn: User.Item | null;
     winner: null | false | string;
+  }
+
+  export interface RPS {
+    turn: string;
   }
 }
 

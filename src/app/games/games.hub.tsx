@@ -1,4 +1,5 @@
 "use client";
+import { Room } from "@/types";
 import styles from "@/app/games/games.hub.module.css";
 
 import { useEffect } from "react";
@@ -12,12 +13,18 @@ import gamesDict from "./games.dict";
 import GameSelection from "./GameSelection";
 
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { selectRoom, fetchRoom, updateRoom } from "@/redux/slices/room";
+import {
+  selectRoom,
+  fetchRoom,
+  updateRoom,
+  userJoinToRoom,
+} from "@/redux/slices/room";
 
 import RoomInformation from "@/games/RoomInformation";
 import UserList from "./user.list";
+import InviteFriend from "../rooms/[id]/InviteFriend";
 
-export default function GamesHub({ id }: { id: string }) {
+export default function GamesHub({ id }: { id: Room.Id }) {
   const dispatch = useAppDispatch();
 
   const roomStatus = useAppSelector((state) => state.room.status);
@@ -25,6 +32,9 @@ export default function GamesHub({ id }: { id: string }) {
   useEffect(() => {
     if (roomStatus === "idle") {
       dispatch(fetchRoom(id));
+    }
+    if (roomStatus === "succeeded") {
+      dispatch(userJoinToRoom(id));
     }
   }, [roomStatus, dispatch, id]);
 
@@ -35,14 +45,17 @@ export default function GamesHub({ id }: { id: string }) {
         "loading.game",
         "game.loaded",
         "game.load.failed",
-      ].includes(roomStatus) && <Room />}
+        "joined.to.room",
+      ].includes(roomStatus) && <RoomHub />}
       {roomStatus === "failed" && <>Error Getting room information</>}
       {roomStatus === "loading" && <>Getting room information</>}
+      {roomStatus === "joining.to.room" && <>Joining to room</>}
+      {roomStatus === "join.to.room.failed" && <>Joining to room FAIL</>}
     </>
   );
 }
 
-export const Room = () => {
+export const RoomHub = () => {
   const dispatch = useAppDispatch();
   const room = useAppSelector(selectRoom);
 
@@ -68,6 +81,7 @@ export const Room = () => {
 
   return (
     <>
+      <InviteFriend />
       <div className={styles.gamesHub}>
         <h2>Games</h2>
         <UserList />
@@ -78,7 +92,6 @@ export const Room = () => {
           gamesDict[room.game].component
         )}
       </div>
-
       <Toaster position="bottom-right" />
     </>
   );

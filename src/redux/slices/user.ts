@@ -6,44 +6,55 @@ import type { User, InitialState } from "@/types";
 import request from "@/api";
 import { Auth } from "@/firebase/client";
 
-const { onAuthChange } = Auth();
+import { updateProfile } from "firebase/auth";
+
+const { onAuthChange, anonSignIn } = Auth();
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   const user = await onAuthChange();
 
   if (user) {
-    return {
+    const userData = {
       displayName: user.displayName,
       uid: user.uid,
     };
+    return userData;
   }
 
   return null;
 });
 
-export const userJoinToRoom = createAsyncThunk(
-  "user/joinToRoom",
-  async (id: string) => {
-    const room = await request({
-      method: "PUT",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      data: {
-        trans: "user.join",
-      },
-    });
+export const createAccount = createAsyncThunk(
+  "user/createAccount",
+  async () => {
+    try {
+      await anonSignIn();
 
-    return room;
+      return "Account created";
+    } catch (e) {
+      console.log("Error during account creationg");
+    }
   }
 );
 
-const initialState: InitialState<
-  User.Item | null,
-  "joining.to.room" | "joined.to.room" | "join.to.room.failed"
-> = {
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (newUserData: any) => {
+    const user = await onAuthChange();
+
+    if (!user) {
+      throw new Error("No user authorization");
+    }
+
+    await updateProfile(user, {
+      ...newUserData,
+    });
+
+    return "Updated Profile";
+  }
+);
+
+const initialState: InitialState<User.Item | null> = {
   data: null,
   status: "idle",
   error: null,
@@ -67,18 +78,6 @@ export const userSlice = createSlice({
       )
       .addCase(fetchUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || null;
-      });
-
-    builder
-      .addCase(userJoinToRoom.pending, (state) => {
-        state.status = "joining.to.room";
-      })
-      .addCase(userJoinToRoom.fulfilled, (state) => {
-        state.status = "joined.to.room";
-      })
-      .addCase(userJoinToRoom.rejected, (state, action) => {
-        state.status = "join.to.room.failed";
         state.error = action.error.message || null;
       });
   },

@@ -1,5 +1,4 @@
 "use client";
-import InviteFriend from "@/app/rooms/invite.friend";
 
 import styles from "@/app/rooms/[id]/room.hub.module.css";
 
@@ -15,11 +14,7 @@ export default function Room({
 }) {
   return (
     <Provider store={store}>
-      <main className={styles.roomHub}>
-        <InviteFriend params={params} />
-
-        {children}
-      </main>
+      <main className={styles.roomHub}>{children}</main>
     </Provider>
   );
 }
