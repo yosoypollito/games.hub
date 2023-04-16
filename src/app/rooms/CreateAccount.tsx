@@ -59,10 +59,6 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
       })
     );
 
-    if (id) {
-      dispatch(userJoinToRoom(id));
-    }
-
     const data = await request<{
       status: number;
       room: string;
