@@ -1,10 +1,9 @@
 .roomHub {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   place-content: center;
   place-items: center;
-  display: grid;
 
+  grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr;
   gap: 18px;
 

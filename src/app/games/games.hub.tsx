@@ -10,6 +10,7 @@ import { onSnapshot, doc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 
 import gamesDict from "./games.dict";
+import Button from "../components/Button";
 import GameSelection from "./GameSelection";
 
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -20,9 +21,10 @@ import {
   userJoinToRoom,
 } from "@/redux/slices/room";
 
-import RoomInformation from "@/games/RoomInformation";
-import UserList from "./user.list";
+import UserList from "./UserList";
 import InviteFriend from "../rooms/[id]/InviteFriend";
+
+import { IconArrowBadgeLeft } from "@tabler/icons-react";
 
 export default function GamesHub({ id }: { id: Room.Id }) {
   const dispatch = useAppDispatch();
@@ -79,13 +81,19 @@ export const RoomHub = () => {
     };
   }, [dispatch, room.id]);
 
+  const goBackToGames = () => {};
+
   return (
     <>
-      <InviteFriend />
+      <div className={styles.actions}>
+        <Button onClick={goBackToGames}>
+          <IconArrowBadgeLeft strokeWidth={1.5} />
+        </Button>
+        {gamesDict[room.game] && <h1>{gamesDict[room.game].label}</h1>}
+        <InviteFriend />
+      </div>
       <div className={styles.gamesHub}>
-        <h2>Games</h2>
         <UserList />
-        <RoomInformation />
         {!gamesDict[room.game] ? (
           <GameSelection />
         ) : (

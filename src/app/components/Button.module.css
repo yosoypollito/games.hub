@@ -1,0 +1,22 @@
+.button {
+  display: flex;
+  background: transparent;
+  border: 1px solid var(--grey);
+  border-radius: 16px;
+  place-items: center;
+  place-content: center;
+  padding: 3px 16px;
+
+  color: var(--button-text-color);
+
+  transition: all 300ms;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--detail);
+  background: var(--detail);
+}

@@ -29,6 +29,8 @@
   text-transform: uppercase;
   font-weight: 600;
 
+  grid-column: span 1;
+
   cursor: pointer;
 }
 
@@ -36,4 +38,28 @@
   stroke: var(--game-icon-text-color);
   stroke-width: 1px;
   fill: none;
+}
+
+.gameSelection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  padding: 32px;
+  gap: 18px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  place-content: space-between;
+  width: 100%;
+  grid-column: 1/-1;
+
+  gap: 32px;
+}
+
+.actions h1 {
+  display: flex;
+  place-self: center;
+  font-size: 16px;
 }

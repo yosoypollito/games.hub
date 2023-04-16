@@ -1,4 +1,4 @@
-import styles from "@/app/games/user.list.module.css";
+import styles from "@/app/games/UserList.module.css";
 
 import type { User } from "@/types";
 
