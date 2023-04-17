@@ -1,5 +1,10 @@
 import Link from "next/link";
+import ButtonStyles from "../components/Button.module.css";
 
 export default function GoToRooms() {
-  return <Link href="/rooms/">Go to rooms</Link>;
+  return (
+    <Link className={ButtonStyles.button} href="/rooms/">
+      Go to rooms
+    </Link>
+  );
 }
