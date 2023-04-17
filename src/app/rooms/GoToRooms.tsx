@@ -1,9 +1,8 @@
 import Link from "next/link";
-import ButtonStyles from "../components/Button.module.css";
 
 export default function GoToRooms() {
   return (
-    <Link className={ButtonStyles.button} href="/rooms/">
+    <Link className="py-2 px-4 rounded-full border-amber-500 border-2" href="/rooms/">
       Go to rooms
     </Link>
   );
