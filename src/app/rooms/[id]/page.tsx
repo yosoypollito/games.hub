@@ -20,6 +20,7 @@ export default function Hub({ params }: { params: { id: Room.Id } }) {
   useEffect(() => {
     dispatch(fetchRoom(params.id));
   }, []);
+  //TODO create components for loading and failed status
 
   if (roomStatus === "failed") {
     return <>Loading room failed</>;
