@@ -97,7 +97,9 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
       <div className={styles.roomForm}>
         <Label htmlFor="name">Name</Label>
         <RoomInput onChange={changeDisplayName} value={displayName} id="name" />
-        <RoomButton onClick={createUser}>Create Room</RoomButton>
+        <RoomButton onClick={createUser}>
+          {id ? "Join room" : "Create Room"}
+        </RoomButton>
       </div>
       <span>
         By clicking the button above you are allowing the creation of an
