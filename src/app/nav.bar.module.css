@@ -1,5 +1,6 @@
 .nav {
   display: flex;
+  width:100%;
   grid-row: span 1;
 
   place-content: space-between;

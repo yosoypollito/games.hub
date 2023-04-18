@@ -10,16 +10,43 @@ import { onSnapshot, doc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 
 import gamesDict from "./games.dict";
-import Button from "../components/Button";
 import GameSelection from "./GameSelection";
 
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { selectRoom, updateRoom, updateGame } from "@/redux/slices/room";
+import ActionButton from "../rooms/[id]/ActionButton";
+import { useAppDispatch } from "@/redux/hooks";
+import { updateRoom, updateGame } from "@/redux/slices/room";
 
 import UserList from "./UserList";
 import InviteFriend from "../rooms/[id]/InviteFriend";
 
-import { IconArrowBadgeLeft } from "@tabler/icons-react";
+import { IconArrowBackUp } from "@tabler/icons-react";
+import cn from "classnames";
+
+const Actions = ({ room }: { room: Room.Item }) => {
+  const dispatch = useAppDispatch();
+
+  const goBackToGames = () => {
+    dispatch(
+      updateGame({
+        game: "default",
+      })
+    );
+  };
+
+  return (
+    <div className={cn("relative w-full", styles.clipCustom)}>
+      <div className="relative z-10 flex w-full flex-row justify-between gap-4 rounded-full border-2 border-white bg-blue px-4 py-2 text-white dark:bg-red">
+        <ActionButton onClick={goBackToGames}>
+          <IconArrowBackUp strokeWidth={2} size={24} />
+        </ActionButton>
+        {gamesDict[room.game] && <h1>{gamesDict[room.game].label}</h1>}
+        <InviteFriend />
+      </div>
+
+      <UserList />
+    </div>
+  );
+};
 
 export default function GamesHub({ room }: { room: Room.Item }) {
   const dispatch = useAppDispatch();
@@ -47,31 +74,16 @@ export default function GamesHub({ room }: { room: Room.Item }) {
     };
   }, [dispatch, room.id]);
 
-  const goBackToGames = () => {
-    dispatch(
-      updateGame({
-        game: "default",
-      })
-    );
-  };
-
   return (
     <>
-      <div className={styles.actions}>
-        <Button onClick={goBackToGames}>
-          <IconArrowBadgeLeft strokeWidth={1.5} />
-        </Button>
-        {gamesDict[room.game] && <h1>{gamesDict[room.game].label}</h1>}
-        <InviteFriend />
-      </div>
       <div className={styles.gamesHub}>
-        <UserList />
         {!gamesDict[room.game] ? (
           <GameSelection />
         ) : (
           gamesDict[room.game].component
         )}
       </div>
+      <Actions room={room} />
       <Toaster position="bottom-right" />
     </>
   );

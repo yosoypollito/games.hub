@@ -4,8 +4,8 @@
   place-items: center;
 
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: 1fr min-content;
   gap: 18px;
-
+  height:auto;
   grid-row: span 1;
 }

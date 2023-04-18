@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/app/components/Button";
 import { useAppSelector } from "@/redux/hooks";
 import { selectRoom } from "@/redux/slices/room";
 
+import ActionButton from "./ActionButton";
 import { toast } from "react-hot-toast";
 import { IconLink } from "@tabler/icons-react";
 
@@ -17,8 +17,8 @@ export default function InviteFriend() {
   };
 
   return (
-    <Button onClick={copyUrl}>
-      <IconLink strokeWidth={1.5} />
-    </Button>
+    <ActionButton onClick={copyUrl}>
+      <IconLink strokeWidth={2} size={24} />
+    </ActionButton>
   );
 }

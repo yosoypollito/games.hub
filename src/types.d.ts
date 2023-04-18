@@ -40,7 +40,18 @@ export namespace Games {
   }
 
   export interface RPS {
-    turn: string;
+    players: {
+      one: User.uid | null;
+      two: User.uid | null;
+    };
+    scoreboard: {
+      one: number;
+      two: number;
+    };
+    turns: {
+      one: null | string;
+      two: null | string;
+    };
   }
 }
 

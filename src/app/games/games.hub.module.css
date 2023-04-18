@@ -1,9 +1,9 @@
 .gamesHub {
+  width:100%;
   display: flex;
   flex-direction: column;
 
-  align-self: flex-start;
-  place-content: flex-start;
+  place-content: center;
   place-items: center;
 
   grid-row: span 1;
@@ -48,18 +48,6 @@
   gap: 18px;
 }
 
-.actions {
-  display: flex;
-  flex-direction: row;
-  place-content: space-between;
-  width: 100%;
-  grid-column: 1/-1;
-
-  gap: 32px;
-}
-
-.actions h1 {
-  display: flex;
-  place-self: center;
-  font-size: 16px;
+.clipCustom{
+  clip-path:inset(-1000% 0% 0% 0%);
 }

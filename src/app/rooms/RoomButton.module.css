@@ -16,6 +16,6 @@
   background: var(--button-background);
   color: var(--button-text-color);
 
-  box-shadow: 5px 5px 0 var(--game-icon-shadow-color);
+  box-shadow: 5px 5px 0 var(--button-shadow-color);
   font-size: 12px;
 }
