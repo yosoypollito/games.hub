@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getTokenPayloadFromRequest } from "@/app/api/auth/token";
 
 import { db, auth } from "@/firebase/admin";
+import { FieldValue } from "firebase-admin/firestore";
 
 interface RoomParams {
   params: {
@@ -89,10 +90,10 @@ export async function PUT(req: Request, { params }: RoomParams) {
 
     const roomDoc = db.doc(`rooms/${params.id}`);
     //Assign new leader and/or add to players
-    if (body.trans == "user.join") {
+    if (body.trans === "user.join") {
       let newLead = payload.uid;
 
-      if (room.leader != "") {
+      if (room.leader !== "") {
         newLead = room.leader;
       }
 
@@ -106,6 +107,19 @@ export async function PUT(req: Request, { params }: RoomParams) {
 
       return NextResponse.json({
         message: "User added to players and/or leader changed",
+      });
+    }
+
+    if (body.trans === "user.leave") {
+      //TODO delete room if theres no more people in room
+      //TODO change to other user leader
+      //
+      roomDoc.update({
+        [`players.${user.uid}`]: FieldValue.delete(),
+      });
+
+      return NextResponse.json({
+        message: "User leaved room",
       });
     }
 

@@ -30,7 +30,7 @@ export default function Hub({ params }: { params: { id: Room.Id } }) {
     return <>Loading room</>;
   }
 
-  if (user && room) {
+  if (user && room && Object.keys(room.players).includes(user.uid)) {
     return <GamesHub room={room} />;
   }
 

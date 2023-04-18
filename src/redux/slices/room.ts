@@ -10,6 +10,25 @@ import { db } from "@/app/firebase/client";
 
 import request from "@/api";
 
+export const userLeaveRoom = createAsyncThunk(
+  "room/userLeaveRoom",
+  async (id: string) => {
+    const room = await request({
+      method: "PUT",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/room/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      data: {
+        trans: "user.leave",
+      },
+    });
+
+    return room;
+  }
+);
+
 export const userJoinToRoom = createAsyncThunk(
   "room/userJoinToRoom",
   async (id: string) => {

@@ -33,6 +33,12 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (user?.displayName) {
+      setDisplayName(user.displayName);
+    }
+  }, [user]);
+
   const [displayName, setDisplayName] = useState<string>((): string => {
     if (user?.displayName) {
       return user.displayName;
@@ -61,7 +67,8 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
     );
 
     if (id) {
-      return await dispatch(userJoinToRoom(id));
+      await dispatch(userJoinToRoom(id));
+      return window.location.reload();
     }
 
     const data = await request<{

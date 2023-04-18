@@ -14,7 +14,7 @@ import GameSelection from "./GameSelection";
 
 import ActionButton from "../rooms/[id]/ActionButton";
 import { useAppDispatch } from "@/redux/hooks";
-import { updateRoom, updateGame } from "@/redux/slices/room";
+import { updateRoom, updateGame, userLeaveRoom } from "@/redux/slices/room";
 
 import UserList from "./UserList";
 import InviteFriend from "../rooms/[id]/InviteFriend";
@@ -67,11 +67,21 @@ export default function GamesHub({ room }: { room: Room.Item }) {
           })
         );
       });
-    }
 
-    return () => {
-      // TODO unsuscribe firebase/handle disconnect
-    };
+      const leave = () => {
+        unRoom();
+        //TODO send you leave from room
+        dispatch(userLeaveRoom(room.id));
+      };
+
+      window.addEventListener("beforeunload", leave);
+
+      return () => {
+        // TODO unsuscribe firebase/handle disconnect
+        window.removeEventListener("beforeunload", leave);
+        leave();
+      };
+    }
   }, [dispatch, room.id]);
 
   return (
