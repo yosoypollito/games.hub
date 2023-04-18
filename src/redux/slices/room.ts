@@ -175,7 +175,7 @@ export const userInRoom = (id: User.uid) =>
   });
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectRoom = (state: RootState) => state.room.data;
-export const selectGameData = (state: RootState) => state.room.data.gameData;
+export const selectRoom = (state: RootState) => state.room?.data;
+export const selectGameData = (state: RootState) => state.room?.data.gameData;
 
 export default roomSlice.reducer;
