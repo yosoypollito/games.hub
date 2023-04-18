@@ -8,7 +8,7 @@ import { initGame, resetRoom, updateGame } from "@/redux/slices/room";
 export default function Game() {
   const dispatch = useAppDispatch();
 
-  const roomStatus = useAppSelector((state) => state.room.status);
+  const roomStatus = useAppSelector((state) => state.room?.status);
 
   useEffect(() => {
     dispatch(

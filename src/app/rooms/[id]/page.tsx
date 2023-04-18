@@ -14,7 +14,7 @@ export default function Hub({ params }: { params: { id: Room.Id } }) {
   const user = useAppSelector(selectUser);
   const room = useAppSelector(selectRoom);
 
-  const roomStatus = useAppSelector((state) => state.room.status);
+  const roomStatus = useAppSelector((state) => state.room?.status);
   console.log({ room });
 
   useEffect(() => {
