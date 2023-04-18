@@ -33,7 +33,7 @@ export default function UserList() {
 
   return (
     <div
-      className={`absolute bottom-full right-4 z-0 max-h-80 transform rounded-tl-md bg-white py-2 pl-0.5 pr-2 shadow-md transition-all ${
+      className={`absolute bottom-full right-6 z-0 max-h-80 transform rounded-tl-md bg-white py-2 pl-0.5 pr-2 shadow-md transition-all ${
         hide && "translate-y-[100%]"
       }`}
     >
