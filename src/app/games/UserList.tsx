@@ -42,7 +42,7 @@ export default function UserList() {
           {hide ? <IconChevronUp size={20} /> : <IconChevronDown size={20} />}
         </button>
       </div>
-      <div className="flex max-h-36 flex-col overflow-y-auto">
+      <div className="grid max-h-36 grid-flow-row auto-rows-[30px] flex-col overflow-y-auto">
         {Object.keys(players).map((user) => (
           <UserItem
             key={players[user].uid}
