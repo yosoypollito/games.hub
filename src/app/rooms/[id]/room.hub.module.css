@@ -8,4 +8,5 @@
   gap: 18px;
   height:auto;
   grid-row: span 1;
+  overflow:hidden;
 }
