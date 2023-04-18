@@ -39,19 +39,27 @@ export namespace Games {
     winner: null | false | string;
   }
 
-  export interface RPS {
-    players: {
-      one: User.uid | null;
-      two: User.uid | null;
-    };
-    scoreboard: {
-      one: number;
-      two: number;
-    };
-    turns: {
-      one: null | string;
-      two: null | string;
-    };
+  export namespace RPS {
+    export enum PICKS {
+      SCISSORS = "S",
+      ROCK = "R",
+      PAPER = "P",
+    }
+
+    interface Item {
+      players: {
+        one: User.uid | null;
+        two: User.uid | null;
+      };
+      scoreboard: {
+        one: number;
+        two: number;
+      };
+      turns: {
+        one: null | string;
+        two: null | string;
+      };
+    }
   }
 }
 

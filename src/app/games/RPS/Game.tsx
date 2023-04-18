@@ -1,3 +1,4 @@
+import { Games } from "@/types";
 import { PICKS } from "./constants";
 
 import {
@@ -48,7 +49,7 @@ const ScoreBoard = () => {
 };
 
 export default function Game() {
-  const ChoosePick = (pick: PICKS) => {};
+  const ChoosePick = (pick: Games.RPS.PICKS) => {};
 
   return (
     <section className="border-grey-50 flex h-60 w-full flex-col items-center justify-between rounded-md border-2 bg-blue px-10 py-5 text-white shadow-md dark:bg-red">
