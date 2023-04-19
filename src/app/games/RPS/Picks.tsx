@@ -66,6 +66,7 @@ export default function Picks({
       if (winner === null) {
         //TODO draw
         toast("Draw");
+        return;
       }
       newGameData = {
         ...newGameData,
