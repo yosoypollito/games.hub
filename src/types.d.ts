@@ -40,25 +40,21 @@ export namespace Games {
   }
 
   export namespace RPS {
-    export enum PICKS {
-      SCISSORS = "S",
-      ROCK = "R",
-      PAPER = "P",
-    }
+    export type Scoreboard = {
+      one: number;
+      two: number;
+    };
 
-    interface Item {
-      players: {
-        one: User.uid | null;
-        two: User.uid | null;
-      };
-      scoreboard: {
-        one: number;
-        two: number;
-      };
-      turns: {
-        one: null | string;
-        two: null | string;
-      };
+    export type Players = Array<User.uid | null>;
+    export type Turns = {
+      one: null | string;
+      two: null | string;
+    };
+
+    export interface Item {
+      players: Players;
+      scoreboard: Scoreboard;
+      turns: Turns;
     }
   }
 }

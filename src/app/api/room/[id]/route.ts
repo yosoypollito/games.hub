@@ -51,6 +51,7 @@ export async function GET(request: Request, { params }: RoomParams) {
     });
   } catch (e: any) {
     console.log(e?.message);
+    console.log("something");
     return NextResponse.json({
       status: 404,
       error: "Cant create room",

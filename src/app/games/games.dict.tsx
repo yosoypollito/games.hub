@@ -26,6 +26,7 @@ const gamesDict: {
     label: "Rock Paper Scissors",
     component: <RPS />,
     initState: {
+      players: [],
       scoreboard: {
         one: 0,
         two: 0,
