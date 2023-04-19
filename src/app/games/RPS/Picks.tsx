@@ -63,17 +63,14 @@ export default function Picks({
     const winner = checkWinner({ turns: newTurns });
 
     if (newTurns[turnKey] !== null && newTurns[opponentKey] !== null) {
-      if (winner === null) {
-        //TODO draw
-        toast("Draw");
-        return;
+      if (winner !== null) {
+        newGameData = {
+          ...newGameData,
+          [`gameData.scoreboard.${
+            winner === newTurns[turnKey] ? turnKey : opponentKey
+          }`]: increment(1),
+        };
       }
-      newGameData = {
-        ...newGameData,
-        [`gameData.scoreboard.${
-          winner === newTurns[turnKey] ? turnKey : opponentKey
-        }`]: increment(1),
-      };
     }
 
     dispatch(
