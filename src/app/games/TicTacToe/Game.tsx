@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Board from "./Board";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { initGame, resetRoom, updateGame } from "@/redux/slices/room";
+import { initGame, updateGame } from "@/redux/slices/room";
 
 export default function Game() {
   const dispatch = useAppDispatch();

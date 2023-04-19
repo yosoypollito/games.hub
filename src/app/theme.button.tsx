@@ -28,7 +28,7 @@ const ThemeButton = () => {
     const localTheme = window.localStorage.getItem("theme");
 
     if (localTheme) {
-      return localTheme == "dark" ? true : false;
+      return localTheme === "dark" ? true : false;
     }
 
     return window.matchMedia("(prefers-color-scheme: dark)").matches

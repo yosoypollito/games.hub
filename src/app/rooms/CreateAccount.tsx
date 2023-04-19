@@ -31,7 +31,7 @@ export default function CreateAccount({ id }: { id?: Room.Id }) {
     if (userState === "idle") {
       dispatch(fetchUser());
     }
-  }, []);
+  }, [dispatch, userState]);
 
   useEffect(() => {
     if (user?.displayName) {
