@@ -24,7 +24,7 @@ export default function Hub({ params }: { params: { id: Room.Id } }) {
   }
 
   if (user && room && Object.keys(room.players).includes(user.uid)) {
-    return <GamesHub room={room} />;
+    return <GamesHub/>;
   }
 
   return <CreateAccount id={params.id} />;
