@@ -1,7 +1,7 @@
 "use client";
 import styles from "@/app/games/games.hub.module.css";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Toaster } from "react-hot-toast";
 
@@ -36,27 +36,7 @@ const Actions = () => {
 
 export default function GamesHub() {
 
-  const { room, actions: { subscribeRealTime, leaveRoom } } = useRoom({});
-
-  useEffect(() => {
-    if (room.id) {
-      const unRoom = subscribeRealTime();
-
-      const leave = () => {
-        unRoom();
-        //TODO send you leave from room
-        leaveRoom();
-      };
-
-      window.addEventListener("beforeunload", leave);
-
-      return () => {
-        // TODO unsuscribe firebase/handle disconnect
-        window.removeEventListener("beforeunload", leave);
-        leave();
-      };
-    }
-  }, [room, subscribeRealTime, leaveRoom]);
+  const { room } = useRoom({ subscribeRealTime: true });
 
   return (
     <>

@@ -1,10 +1,9 @@
 import type { User } from "@/types";
 
-import { useAppSelector } from "@/redux/hooks";
-import { selectRoom } from "@/redux/slices/room";
 import { useState } from "react";
 
 import { IconChevronDown, IconChevronUp, IconCrown } from "@tabler/icons-react";
+import useRoom from "@/hooks/useRoom";
 
 const UserItem = ({ user, leader }: { user: User.Item; leader: string }) => {
   const { displayName, uid } = user;
@@ -17,7 +16,8 @@ const UserItem = ({ user, leader }: { user: User.Item; leader: string }) => {
 };
 
 export default function UserList() {
-  const { players, leader } = useAppSelector(selectRoom);
+  const { room:{players, leader} } = useRoom({});
+
   const [hide, setHide] = useState((): boolean => {
     const prevHide = localStorage.getItem("hideList");
     if (prevHide) {

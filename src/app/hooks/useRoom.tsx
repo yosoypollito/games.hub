@@ -6,9 +6,11 @@ import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/firebase/client";
 
 import toast from "react-hot-toast";
+import { Games } from "@/types";
 
-export default function useRoom({ id }: {
+export default function useRoom({ id, subscribeRealTime }: {
   id?: string;
+  subscribeRealTime?: boolean;
 }) {
   const dispatch = useAppDispatch();
   const room = useAppSelector(state => state.room.data);
@@ -22,10 +24,10 @@ export default function useRoom({ id }: {
   }, [dispatch, id, roomStatus])
 
   const changeGame = (game: string) => {
-    dispatch(updateGame({ game: "default" }));
+    dispatch(updateGame({ game }));
   }
 
-  const subscribeRealTime = () => onSnapshot(doc(db, "rooms", room.id), (doc) => {
+  const realTime = () => onSnapshot(doc(db, "rooms", room.id), (doc) => {
     const newData = doc.data();
     if (newData == null) {
       // TODO handle errors;
@@ -39,7 +41,30 @@ export default function useRoom({ id }: {
     );
   })
 
-  const leaveRoom = ()=>dispatch(userLeaveRoom(room.id))
+  useEffect(() => {
+    if (room.id && subscribeRealTime) {
+
+      const unRoom = realTime();
+
+      const leave = () => {
+        unRoom();
+        //TODO send you leave from room
+        leaveRoom();
+      };
+
+      window.addEventListener("beforeunload", leave);
+
+      return () => {
+        // TODO unsuscribe firebase/handle disconnect
+        window.removeEventListener("beforeunload", leave);
+        leave();
+      };
+    }
+  }, [room.id, subscribeRealTime]);
+
+  const leaveRoom = () => dispatch(userLeaveRoom(room.id))
+
+  const updateGameData = (gameData: Games.State) => dispatch(updateGame(gameData));
 
   return {
     room,
@@ -47,8 +72,8 @@ export default function useRoom({ id }: {
     error: errorMessage,
     actions: {
       changeGame,
-      subscribeRealTime,
-      leaveRoom
+      leaveRoom,
+      updateGameData
     }
   }
 }

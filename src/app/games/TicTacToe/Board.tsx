@@ -1,12 +1,6 @@
 import { Games } from "@/types";
 import styles from "./TicTacToe.module.css";
 
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { selectGameData, updateGame } from "@/redux/slices/room";
-
-import { selectRoom } from "@/redux/slices/room";
-import { selectUser } from "@/redux/slices/user";
-
 import { toast } from "react-hot-toast";
 
 import { TURNS } from "./constants";
@@ -16,13 +10,14 @@ import { UpdateData } from "firebase/firestore";
 
 import Square from "./Square";
 import WinnerModal from "./WinnerModal";
+import useRoom from "@/app/hooks/useRoom";
+import useUser from "@/app/hooks/useUser";
 
 export default function Board() {
-  const dispatch = useAppDispatch();
-  const room = useAppSelector(selectRoom);
-  const game: Games.TicTacToe = useAppSelector(selectGameData);
+  const { room, actions: { updateGameData } } = useRoom({});
+  const game: Games.TicTacToe = room.gameData;
 
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
 
   if (!game || !user) {
     return <>not game selected</>;
@@ -58,7 +53,7 @@ export default function Board() {
       gameDataChanges["gameData.winner"] = false;
     }
 
-    dispatch(updateGame(gameDataChanges));
+    updateGameData(gameDataChanges)
   };
 
   return (
