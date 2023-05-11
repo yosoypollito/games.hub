@@ -1,17 +1,15 @@
 import { Games } from "@/types";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
-import { selectGameData } from "@/redux/slices/room";
-import { selectUser } from "@/redux/slices/user";
-import { updateGame } from "@/redux/slices/room";
 
 import { arrayUnion } from "firebase/firestore";
 import { toast } from "react-hot-toast";
+import useUser from "@/app/hooks/useUser";
+import useRoom from "@/app/hooks/useRoom";
 
 export default function JoinToGame() {
-  const dispatch = useAppDispatch();
-  const gameData: Games.RPS.Item = useAppSelector(selectGameData);
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
+  const { room, actions: { updateGameData } } = useRoom({});
+
+  const gameData: Games.RPS.Item = room.gameData;
 
   const joinToPlayers = () => {
     if (gameData.players.length === 2) {
@@ -22,11 +20,9 @@ export default function JoinToGame() {
       return toast.error("No user");
     }
 
-    dispatch(
-      updateGame({
-        "gameData.players": arrayUnion(user.uid),
-      })
-    );
+    updateGameData({
+      "gameData.players": arrayUnion(user.uid),
+    })
   };
 
   return (

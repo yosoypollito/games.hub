@@ -1,47 +1,41 @@
 import { useEffect } from "react";
 import { Games } from "@/types";
-
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { selectGameData, updateGame, initGame } from "@/redux/slices/room";
-import { selectUser } from "@/redux/slices/user";
 import Loading from "@/app/components/Loading";
 
 import PlayerView from "./PlayerView";
 import ScoreBoard from "./ScoreBoard";
 import JoinToGame from "./JoinToGame";
 import ActionButton from "@/app/rooms/[id]/components/ActionButton";
+import useRoom from "@/app/hooks/useRoom";
+import useUser from "@/app/hooks/useUser";
 
 export default function Game() {
-  const dispatch = useAppDispatch();
-  const gameData: Games.RPS.Item = useAppSelector(selectGameData);
-  const user = useAppSelector(selectUser);
+
+  const { user } = useUser();
+  const { room, actions: { updateGameData, startGame } } = useRoom({});
+
+  const gameData: Games.RPS.Item = room.gameData;
 
   const resetTurns = () => {
-    dispatch(
-      updateGame({
-        "gameData.turns": {
-          one: null,
-          two: null,
-        },
-      })
-    );
+    updateGameData({
+      "gameData.turns": {
+        one: null,
+        two: null,
+      },
+    })
   };
 
   useEffect(() => {
-    dispatch(
-      initGame({
-        game: "RPS",
-      })
-    );
+    startGame({
+      game: "RPS",
+    })
 
     return () => {
-      dispatch(
-        updateGame({
-          gameData: null,
-        })
-      );
+      updateGameData({
+        gameData: null,
+      })
     };
-  }, [dispatch]);
+  }, []);
 
   if (!gameData || !user) {
     return <Loading />;
