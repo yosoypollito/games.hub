@@ -1,12 +1,15 @@
 "use client";
-import { Room } from "@/types";
-import UserInit from "./UserInit";
 import CreateAccount from "./CreateAccount";
+import useUser from "@/hooks/useUser";
+import Loading from "@/components/Loading";
 
-export default function RoomHub({ params }: { params: { id: Room.Id } }) {
+export default function RoomHub() {
+  const { status, error } = useUser();
   return (
-    <UserInit>
-      <CreateAccount />
-    </UserInit>
+    <>
+      {status === "loading" && <Loading />}
+      {(status === "error" && error) && <div>{error}</div>}
+      {status === "succeeded" && <CreateAccount />}
+    </>
   );
 }

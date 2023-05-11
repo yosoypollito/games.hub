@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex flex-row items-center rounded-full border-2 border-white bg-blue p-2 text-white shadow-md dark:bg-red">
+    <div className="flex self-center justify-self-center px-6 flex-row items-center rounded-full border-2 border-white bg-blue py-3 text-white shadow-md dark:bg-red">
       <svg className="mr-3 h-5 w-5 animate-spin text-white" viewBox="0 0 24 24">
         <circle
           className="opacity-25"
