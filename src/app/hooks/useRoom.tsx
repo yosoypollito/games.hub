@@ -5,7 +5,7 @@ import { fetchRoom, updateGame, updateRoom } from "@/redux/slices/room";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/firebase/client";
 
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function useRoom({ id }: {
   id?: string;

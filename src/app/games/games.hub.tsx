@@ -45,9 +45,8 @@ export default function GamesHub() {
   
   const { room, actions:{ subscribeRealTime } } = useRoom({});
 
-  console.log(room);
   useEffect(() => {
-    if (room.id) {
+    if (room) {
       const unRoom = subscribeRealTime();
 
       const leave = () => {
@@ -64,7 +63,7 @@ export default function GamesHub() {
         leave();
       };
     }
-  }, [dispatch, room.id]);
+  }, [dispatch, room, subscribeRealTime]);
 
   return (
     <>
