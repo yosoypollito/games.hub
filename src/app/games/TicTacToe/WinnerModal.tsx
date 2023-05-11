@@ -1,15 +1,14 @@
 import styles from "./TicTacToe.module.css";
 
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { selectGameData, initGame } from "@/redux/slices/room";
-
 import RoomButton from "@/app/rooms/components/RoomButton";
 
 import { TURNS } from "./constants";
+import useRoom from "@/hooks/useRoom";
 
 export default function WinnerModal() {
-  const dispatch = useAppDispatch();
-  const game = useAppSelector(selectGameData);
+
+  const { room, actions: { startGame } } = useRoom({});
+  const game = room.gameData;
 
   if (!game) {
     return <>not game selected</>;
@@ -34,12 +33,10 @@ export default function WinnerModal() {
       <footer>
         <RoomButton
           onClick={() =>
-            dispatch(
-              initGame({
-                game: "TicTacToe",
-                force: true,
-              })
-            )
+            startGame({
+              game: "TicTacToe",
+              force: true,
+            })
           }
         >
           Empezar de nuevo

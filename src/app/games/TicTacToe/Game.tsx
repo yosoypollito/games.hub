@@ -2,35 +2,28 @@ import { useEffect } from "react";
 
 import Board from "./Board";
 
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { initGame, updateGame } from "@/redux/slices/room";
+import useRoom from "@/app/hooks/useRoom";
 
 export default function Game() {
-  const dispatch = useAppDispatch();
-
-  const roomStatus = useAppSelector((state) => state.room?.status);
+  const { status, actions: { startGame, updateGameData } } = useRoom({});
 
   useEffect(() => {
-    dispatch(
-      initGame({
-        game: "TicTacToe",
-      })
-    );
+    startGame({
+      game: "TicTacToe",
+    })
 
     return () => {
-      dispatch(
-        updateGame({
-          gameData: null,
-        })
-      );
+      updateGameData({
+        gameData: null,
+      })
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
-      {roomStatus === "game.load.failed" && <>Error Game Load Failed</>}
-      {roomStatus === "game.loaded" && <Board />}
-      {roomStatus === "loading.game" && <>Loading Game</>}
+      {status === "game.load.failed" && <>Error Game Load Failed</>}
+      {status === "game.loaded" && <Board />}
+      {status === "loading.game" && <>Loading Game</>}
     </>
   );
 }

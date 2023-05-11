@@ -1,8 +1,8 @@
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react"
-import { fetchRoom, selectRoom, updateGame, updateRoom, userLeaveRoom } from "@/redux/slices/room";
+import { fetchRoom, initGame, selectRoom, updateGame, updateRoom, userLeaveRoom } from "@/redux/slices/room";
 
-import { onSnapshot, doc } from "firebase/firestore";
+import { onSnapshot, doc, UpdateData } from "firebase/firestore";
 import { db } from "@/firebase/client";
 
 import toast from "react-hot-toast";
@@ -60,11 +60,16 @@ export default function useRoom({ id, subscribeRealTime }: {
         leave();
       };
     }
-  }, [room.id, subscribeRealTime]);
+  }, [room?.id, subscribeRealTime]);
 
   const leaveRoom = () => dispatch(userLeaveRoom(room.id))
 
-  const updateGameData = (gameData: Games.State) => dispatch(updateGame(gameData));
+  const updateGameData = (gameData: UpdateData<any>) => dispatch(updateGame(gameData));
+
+  const startGame = ({ game, force }: { game: string; force?: boolean }) => dispatch(initGame({
+    game,
+    force
+  }));
 
   return {
     room,
@@ -73,7 +78,8 @@ export default function useRoom({ id, subscribeRealTime }: {
     actions: {
       changeGame,
       leaveRoom,
-      updateGameData
+      updateGameData,
+      startGame
     }
   }
 }

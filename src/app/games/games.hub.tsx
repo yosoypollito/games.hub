@@ -1,8 +1,6 @@
 "use client";
 import styles from "@/app/games/games.hub.module.css";
 
-import { useCallback, useEffect } from "react";
-
 import { Toaster } from "react-hot-toast";
 
 import gamesDict from "./games.dict";
