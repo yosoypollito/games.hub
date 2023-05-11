@@ -35,11 +35,11 @@ const Actions = () => {
 };
 
 export default function GamesHub() {
-  
-  const { room, actions:{ subscribeRealTime, leaveRoom } } = useRoom({});
+
+  const { room, actions: { subscribeRealTime, leaveRoom } } = useRoom({});
 
   useEffect(() => {
-    if (room) {
+    if (room.id) {
       const unRoom = subscribeRealTime();
 
       const leave = () => {
