@@ -30,7 +30,7 @@ export namespace User {
 }
 
 export namespace Games {
-  export type State = TicTacToe;
+  export type State = TicTacToe | RPS.Item;
 
   export interface TicTacToe {
     board: Array<null | string>;
