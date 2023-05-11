@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react"
-import { fetchRoom, updateGame, updateRoom, userLeaveRoom } from "@/redux/slices/room";
+import { fetchRoom, selectRoom, updateGame, updateRoom, userLeaveRoom } from "@/redux/slices/room";
 
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/firebase/client";
@@ -13,9 +13,9 @@ export default function useRoom({ id, subscribeRealTime }: {
   subscribeRealTime?: boolean;
 }) {
   const dispatch = useAppDispatch();
-  const room = useAppSelector(state => state.room.data);
-  const roomStatus = useAppSelector(state => state.room.status);
-  const errorMessage = useAppSelector(state => state.room.error);
+  const room = useAppSelector(selectRoom);
+  const roomStatus = useAppSelector(state => state.room?.status);
+  const errorMessage = useAppSelector(state => state.room?.error);
 
   useEffect(() => {
     if (id && roomStatus === 'idle') {
