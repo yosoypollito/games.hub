@@ -1,20 +1,14 @@
 "use client";
-import { Room } from "@/types";
 import styles from "@/app/games/games.hub.module.css";
 
 import { useEffect } from "react";
 
-import { db } from "@/firebase/client";
-import { onSnapshot, doc } from "firebase/firestore";
-
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import gamesDict from "./games.dict";
 import GameSelection from "./GameSelection";
 
 import ActionButton from "@/app/rooms/[id]/components/ActionButton";
-import { useAppDispatch } from "@/redux/hooks";
-import { updateRoom, updateGame, userLeaveRoom } from "@/redux/slices/room";
 
 import UserList from "./UserList";
 import InviteFriend from "@/app/rooms/[id]/components/InviteFriend";
@@ -41,9 +35,8 @@ const Actions = () => {
 };
 
 export default function GamesHub() {
-  const dispatch = useAppDispatch();
   
-  const { room, actions:{ subscribeRealTime } } = useRoom({});
+  const { room, actions:{ subscribeRealTime, leaveRoom } } = useRoom({});
 
   useEffect(() => {
     if (room) {
@@ -52,7 +45,7 @@ export default function GamesHub() {
       const leave = () => {
         unRoom();
         //TODO send you leave from room
-        dispatch(userLeaveRoom(room.id));
+        leaveRoom();
       };
 
       window.addEventListener("beforeunload", leave);
@@ -63,7 +56,7 @@ export default function GamesHub() {
         leave();
       };
     }
-  }, [dispatch, room, subscribeRealTime]);
+  }, [room, subscribeRealTime, leaveRoom]);
 
   return (
     <>

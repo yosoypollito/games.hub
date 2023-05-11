@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react"
-import { fetchRoom, updateGame, updateRoom } from "@/redux/slices/room";
+import { fetchRoom, updateGame, updateRoom, userLeaveRoom } from "@/redux/slices/room";
 
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/firebase/client";
@@ -39,13 +39,16 @@ export default function useRoom({ id }: {
     );
   })
 
+  const leaveRoom = ()=>dispatch(userLeaveRoom(room.id))
+
   return {
     room,
     status: roomStatus,
     error: errorMessage,
     actions: {
       changeGame,
-      subscribeRealTime
+      subscribeRealTime,
+      leaveRoom
     }
   }
 }
