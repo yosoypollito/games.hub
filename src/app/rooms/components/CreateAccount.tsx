@@ -1,6 +1,6 @@
 "use client";
 import { Room } from "@/types";
-import styles from "@/app/rooms/create.account.module.css";
+import styles from "@/app/rooms/components/create.account.module.css";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import {
   updateUser,
 } from "@/redux/slices/user";
 import { userJoinToRoom } from "@/redux/slices/room";
-import useUser from "../hooks/useUser";
+import useUser from "@/hooks/useUser";
 
 export default function CreateAccount({ id }: { id?: Room.Id }) {
   const router = useRouter();

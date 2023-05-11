@@ -9,7 +9,7 @@ import Loading from "@/app/components/Loading";
 import PlayerView from "./PlayerView";
 import ScoreBoard from "./ScoreBoard";
 import JoinToGame from "./JoinToGame";
-import ActionButton from "@/app/rooms/[id]/ActionButton";
+import ActionButton from "@/app/rooms/[id]/components/ActionButton";
 
 export default function Game() {
   const dispatch = useAppDispatch();

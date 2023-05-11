@@ -1,18 +1,22 @@
-import { useAppSelector } from "@/redux/hooks";
-import { useEffect, useState } from "react"
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useEffect } from "react"
+import { fetchRoom } from "@/redux/slices/room";
 
 export default function useRoom({ id }: {
   id: string;
 }) {
-  const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
   const room = useAppSelector(state => state.room.data);
+  const roomStatus = useAppSelector(state => state.room.status);
+  const errorMessage = useAppSelector(state => state.room.error);
 
   useEffect(() => {
-
-  }, [id])
+    dispatch(fetchRoom(id));
+  }, [dispatch, id])
 
   return {
     room,
-    loading
+    status: roomStatus,
+    error:errorMessage
   }
 }

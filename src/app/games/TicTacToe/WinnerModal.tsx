@@ -3,7 +3,7 @@ import styles from "./TicTacToe.module.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { selectGameData, initGame } from "@/redux/slices/room";
 
-import RoomButton from "@/app/rooms/RoomButton";
+import RoomButton from "@/app/rooms/components/RoomButton";
 
 import { TURNS } from "./constants";
 

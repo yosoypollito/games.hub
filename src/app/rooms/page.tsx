@@ -1,5 +1,5 @@
 "use client";
-import CreateAccount from "./CreateAccount";
+import CreateAccount from "@/app/rooms/components/CreateAccount";
 import useUser from "@/hooks/useUser";
 import Loading from "@/components/Loading";
 

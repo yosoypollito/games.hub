@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/rooms/[id]/room.hub.module.css";
+import styles from "@/app/rooms/[id]/components/room.hub.module.css";
 
 import { Provider } from "react-redux";
 import store from "@/redux/store";

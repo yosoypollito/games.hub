@@ -12,12 +12,12 @@ import toast, { Toaster } from "react-hot-toast";
 import gamesDict from "./games.dict";
 import GameSelection from "./GameSelection";
 
-import ActionButton from "../rooms/[id]/ActionButton";
+import ActionButton from "@/app/rooms/[id]/components/ActionButton";
 import { useAppDispatch } from "@/redux/hooks";
 import { updateRoom, updateGame, userLeaveRoom } from "@/redux/slices/room";
 
 import UserList from "./UserList";
-import InviteFriend from "../rooms/[id]/InviteFriend";
+import InviteFriend from "@/app/rooms/[id]/components/InviteFriend";
 
 import { IconArrowBackUp } from "@tabler/icons-react";
 import cn from "classnames";

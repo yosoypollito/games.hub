@@ -1,32 +1,25 @@
 "use client";
 import { Room } from "@/types";
-import { useEffect } from "react";
 
 import GamesHub from "@/app/games/games.hub";
-import CreateAccount from "../CreateAccount";
+import CreateAccount from "@/app/rooms/components/CreateAccount";
 
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { selectUser } from "@/redux/slices/user";
-import { selectRoom, fetchRoom } from "@/redux/slices/room";
+import useUser from "@/app/hooks/useUser";
+import useRoom from "@/app/hooks/useRoom";
 
 export default function Hub({ params }: { params: { id: Room.Id } }) {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
-  const room = useAppSelector(selectRoom);
-
-  const roomStatus = useAppSelector((state) => state.room?.status);
-  console.log({ room });
-
-  useEffect(() => {
-    dispatch(fetchRoom(params.id));
-  }, []);
+  
+  const { user } = useUser();
+  const { room, status, error } = useRoom({
+    id:params.id
+  });
   //TODO create components for loading and failed status
 
-  if (roomStatus === "failed") {
+  if (status === "failed") {
     return <>Loading room failed</>;
   }
 
-  if (roomStatus === "loading") {
+  if (status === "loading") {
     return <>Loading room</>;
   }
 
