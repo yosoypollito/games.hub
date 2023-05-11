@@ -37,7 +37,7 @@
         "./src/app/games/*"
       ],
       "@/redux/*": [
-        "./src/redux/*"
+        "./src/app/redux/*"
       ],
       "@/components/*": [
         "./src/app/components/*"
