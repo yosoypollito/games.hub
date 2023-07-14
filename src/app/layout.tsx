@@ -10,6 +10,8 @@ export const metadata = {
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+import { dmsans } from "@/constants";
+
 export default function RootLayout({
   children,
 }: {
@@ -17,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={dmsans.className}>
         <NavBar />
         {children}
       </body>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   darkMode: "class",
@@ -16,12 +17,12 @@ module.exports = {
       },
       keyframes: {
         RPSPlayerOne: {
-          "0%":{ position:"absolute", top:"50%", left:"40%", transform:"translateY(-50%)"},
-          "100%":{ position:"absolute", top:"50%", left:"25%", transform:"translateY(-50%)"},
+          "0%": { position: "absolute", top: "50%", left: "40%", transform: "translateY(-50%)" },
+          "100%": { position: "absolute", top: "50%", left: "25%", transform: "translateY(-50%)" },
         },
         RPSPlayerTwo: {
-          "0%":{ position:"absolute", top:"50%", right:"40%", transform:"translateY(-50%)"},
-          "100%":{ position:"absolute", top:"50%", right:"25%", transform:"translateY(-50%)"},
+          "0%": { position: "absolute", top: "50%", right: "40%", transform: "translateY(-50%)" },
+          "100%": { position: "absolute", top: "50%", right: "25%", transform: "translateY(-50%)" },
         },
       },
     },
