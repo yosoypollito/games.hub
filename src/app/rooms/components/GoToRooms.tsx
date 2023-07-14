@@ -7,7 +7,7 @@ export default function GoToRooms() {
       hover:scale-105 hover:text-light-blue dark:border-red dark:text-white dark:hover:text-red"
       href="/rooms/"
     >
-      Go to rooms
+      Start Playing
     </Link>
   );
 }
