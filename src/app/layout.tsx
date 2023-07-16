@@ -1,16 +1,12 @@
 import "./globals.css";
-import { Montserrat } from "next/font/google";
 
 import NavBar from "@/app/nav.bar";
+import { dmsans } from "@/constants";
 
 export const metadata = {
-  title: "Daif | Games Hub",
-  description: "Created by Daif with Next.js and firebase",
+  title: "Daif | Minigames Hub",
+  description: "Looking for an exciting and entertaining way to spend your free time?\nLook no further than our Minigames website, where you'll find a wide variety of games to suit all tastes and preferences."
 };
-
-const montserrat = Montserrat({ subsets: ["latin"] });
-
-import { dmsans } from "@/constants";
 
 export default function RootLayout({
   children,
