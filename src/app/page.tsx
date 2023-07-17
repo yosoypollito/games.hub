@@ -6,6 +6,7 @@ import { monoton } from "@/constants";
 import HomeSection from "./components/Home/Section";
 import SectionTitle from "./components/Home/SectionTitle";
 import HomeSectionButton from "./components/Home/SectionButton";
+import Collection from "./components/Home/Collection";
 export default function Home() {
   return (
     <main className={`${styles.center} flex flex-col gap-8 m-auto`}>
@@ -26,8 +27,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div>
-        </div>
+        <Collection />
       </HomeSection>
 
       <HomeSection>
