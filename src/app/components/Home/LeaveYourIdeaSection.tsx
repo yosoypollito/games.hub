@@ -53,6 +53,9 @@ export default function LeaveYourIdeaSection() {
               <FormGroup>
                 <Label htmlFor="how_to_play">How to play</Label>
                 <Field name="how_to_play" component={FormikInput} />
+                <p>
+                  Leave a website with information about the game
+                </p>
               </FormGroup>
               <SectionButton type="submit">Let&apos;s make it happen!</SectionButton>
             </Form>
