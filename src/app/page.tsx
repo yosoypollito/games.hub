@@ -5,8 +5,8 @@ import GoToRooms from "@/app/rooms/components/GoToRooms";
 import { monoton } from "@/constants";
 import HomeSection from "./components/Home/Section";
 import SectionTitle from "./components/Home/SectionTitle";
-import HomeSectionButton from "./components/Home/SectionButton";
 import Collection from "./components/Home/Collection";
+import LeaveYourIdeaSection from "./components/Home/LeaveYourIdeaSection";
 export default function Home() {
   return (
     <main className={`${styles.center} flex flex-col gap-8 m-auto`}>
@@ -30,14 +30,7 @@ export default function Home() {
         <Collection />
       </HomeSection>
 
-      <HomeSection>
-        <SectionTitle as="h2" size="medium">
-          Don't See Your Favorite Minigame?
-        </SectionTitle>
-        <HomeSectionButton>
-          Leave Your Game Idea Now!
-        </HomeSectionButton>
-      </HomeSection>
+      <LeaveYourIdeaSection />
 
       <footer>
       </footer>
