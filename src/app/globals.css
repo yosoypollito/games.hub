@@ -49,6 +49,7 @@
 
   --square-border: var(--pink);
 }
+
 :root.light {
   --background: var(--grey);
   --text-color: #000000;
@@ -100,6 +101,5 @@ body {
 }
 
 input {
-  border: none;
   outline: none;
 }
