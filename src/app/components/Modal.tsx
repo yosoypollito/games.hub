@@ -20,7 +20,7 @@ const Modal: FC<PROPS> = ({ children, open = false, handleClose }) => {
         </button>
       </div>
 
-      <main className="z-20 flex flex-col bg-white min-w-[248px] px-4 py-6 text-black shadow-md shadow-white/70 rounded-md">
+      <main className="z-20 flex flex-col bg-white min-w-[248px] px-4 py-6 text-black border-t-4 border-light-blue dark:border-red rounded">
         {children}
       </main>
     </div>
