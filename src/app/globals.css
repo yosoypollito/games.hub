@@ -14,7 +14,10 @@
   --grey: #e5e5e5;
   --blue: #14213d;
 
-  --label-text-color: #9ca3af;
+
+  /* OLD COLOR */
+  /* --label-text-color: #9ca3af; */
+  --label-text-color: #49505b;
 }
 
 :root.dark {
